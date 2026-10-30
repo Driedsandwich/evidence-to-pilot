@@ -1,5 +1,21 @@
 # Verification record
 
+## Submission draft — offline verification, 30 October 2026
+
+Added [SUBMISSION.md](SUBMISSION.md) with English form text, the track selection, judge commands and repository-relative evidence references. README and package.json already agree on the demo command and Node requirement, so neither needed a change. Existing live artifacts remain unchanged; no new provider run, dataset download, training or commit was performed.
+
+| Executed command / check | Result |
+| --- | --- |
+| `npm test` using existing dependencies | **37 passed, 0 failed**, including strict TypeScript compilation and the standalone credential-free demo test. |
+| Fresh local Git clone, then `npm ci --offline --no-audit --no-fund` | Passed: 144 packages installed from the existing npm cache. Clone of commit `3cb1d6d43d749fb196f0acea999e9e6010174bb4` began without `node_modules/`, `dist/`, `data/` or `.env`; dependencies were installed independently, without symlinking the working repository's installation. Network installation and remote clone access were not tested. |
+| `npm run demo` in that fresh clone | Build and mock run passed. Run `2026-10-30T12-34-22-818Z-508e88b8`: three accepted authored-fixture pairs, one `no_good_match`, zero provider attempts, zero estimated cost and peak concurrent inference 2. |
+| README/package/lockfile comparison | README's `npm run demo` maps to `npm run build && node dist/src/demo.js`. README's Node 20-or-later requirement agrees with `engines.node: >=20` in both package files; dependency declarations also agree. This is not a test across every supported Node release. |
+| `npm run trace -- runs/live-8/trace.jsonl` | Regenerated report exactly matches `docs/live-8-trace-report.md`. Summary and trace support three accepted proposals, 22 provider attempts, peak inference 2, three Critic-requested revisions and four producer-validation send-backs. |
+| Submission character counts | Short/full: project name **17/17**, repository **50/50**, description **269/1,433**, concurrency **291/1,253**, track **39/39**. Counts include spaces, punctuation and paragraph newlines inside each text block, excluding labels/fences. All satisfy 300/1,500-character limits. |
+| Submission evidence and links | All local Markdown links resolve. Live outcomes were checked against all eight `runs/live-*` summaries; implementation claims against source. Remote URL matches Git origin, but judge visibility/permissions remain unverified offline. |
+
+Content verification was self-review. An independent review could not start because the review service failed to load its thread context; no independent-review result is claimed. Final form limits and remote judge access still need confirmation before submission.
+
 ## M5 — judging guide, live defaults and offline demo, 30 October 2026
 
 M5 changed the judging guide, default live configuration and no-credential demo. It inspected the already-recorded live evidence; it did not run providers, download data, install dependencies or make a commit. The records below describe this change only; earlier sections remain historical.
