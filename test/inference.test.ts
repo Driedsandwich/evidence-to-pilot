@@ -69,12 +69,20 @@ test("concurrent tasks reserve one run-wide retry wait budget; long Retry-After 
 });
 
 test("role model configuration defaults, overrides and provider validation", () => {
-  const env = { GEMINI_API_KEY: "fixture", CRITIC_MODEL: "gemini-3.5-flash-lite" };
-  assert.equal(modelConfig("live", env, "Company Analyst").model, "gemini-3.5-flash-lite");
+  const env = { PROVIDER: "gemini", GEMINI_API_KEY: "fixture", CRITIC_MODEL: "gemini-3.5-flash-lite" };
+  assert.equal(modelConfig("live", env, "Company Analyst").model, "gemini-3.5-flash");
   assert.equal(modelConfig("live", env, "Critic").model, "gemini-3.5-flash-lite");
   assert.equal(modelConfig("live", { ...env, MODEL: "gemini-3.5-flash-lite", WRITER_MODEL: "gemini-3.5-flash" }, "Matchmaker / Proposal Writer").model, "gemini-3.5-flash");
   assert.throws(() => modelConfig("live", { ...env, CRITIC_MODEL: "claude-haiku-4-5" }, "Critic"), /not registered/);
   assert.equal(modelConfig("mock", env, "Critic").model, "mock-evidence-v1");
+  const anthropic = { ANTHROPIC_API_KEY: "fixture", MODEL: "", WRITER_MODEL: "" };
+  for (const role of ["Company Analyst", "Research Profiler"] as const)
+    assert.deepEqual(modelConfig("live", anthropic, role), { provider: "anthropic", model: "claude-haiku-4-5" });
+  for (const role of ["Matchmaker / Proposal Writer", "Critic"] as const)
+    assert.deepEqual(modelConfig("live", anthropic, role), { provider: "anthropic", model: "claude-sonnet-5-5" });
+  assert.equal(modelConfig("live", { ...anthropic, MODEL: "claude-haiku-4-5" }, "Critic").model, "claude-haiku-4-5");
+  assert.equal(modelConfig("live", { ...anthropic, MODEL: "claude-haiku-4-5", CRITIC_MODEL: "claude-sonnet-5-5" }, "Critic").model, "claude-sonnet-5-5");
+  assert.throws(() => modelConfig("live", { ...anthropic, WRITER_MODEL: "gemini-3.5-flash" }, "Matchmaker / Proposal Writer"), /not registered/);
 });
 
 test("real SDK adapters preserve sanitized HTTP bodies/Retry-After and send provider-compatible structured schemas offline", async () => {

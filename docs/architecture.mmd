@@ -1,5 +1,7 @@
 flowchart TD
-    CLI[CLI: challenge IDs and mode] --> DATA[Pinned local dataset and BM25 index]
+    CLI[CLI: challenge IDs and mode] --> DATA[Local dataset and BM25 index]
+    SNAPSHOT[Pinned organizer snapshot] --> DATA
+    DEMO[Offline demo: authored fixtures, mock only] --> DATA
     DATA --> OPEN[Mozaik challenge.opened event]
     OPEN --> A[Company Analyst runLoop]
     OPEN --> B[Research Profiler runLoop]

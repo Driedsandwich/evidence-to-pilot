@@ -1,5 +1,27 @@
 # Verification record
 
+## M5 — judging guide, live defaults and offline demo, 30 October 2026
+
+M5 changed the judging guide, default live configuration and no-credential demo. It inspected the already-recorded live evidence; it did not run providers, download data, install dependencies or make a commit. The records below describe this change only; earlier sections remain historical.
+
+| Executed command / check | Result |
+| --- | --- |
+| `npm test` (includes `npm run build`) | **37 passed, 0 failed**; strict TypeScript compilation passed. Includes per-role default/override checks and a child-process demo run with no dataset or credentials. |
+| `npm run demo` (also builds) | Three distinct authored mock pairs accepted after Critic correction; one no-match. Run `2026-10-30T11-35-05-199Z-288ca132`, 22 mock invocations, peak inference 2, zero provider attempts and zero estimated cost. Output remains under ignored `out/`. |
+| `npm run trace -- out/2026-10-30T11-35-05-199Z-288ca132/trace.jsonl` | Four analysis overlaps of 27, 28, 28 and 27 ms; three intentional Critic send-backs. |
+| Clean source-tree `npm run demo` | Passed without `data/`, `.env` or prebuilt `dist/`. A temporary source copy reused the existing installed dependencies through a symlink. This verifies the clean build/demo path, **not a fresh dependency installation**. |
+| Package/lockfile consistency check | Dependencies, development dependencies and engine constraints agree; Mozaik is exactly 4.1.0 in both files. `npm ci` was not executed because dependency reinstallation and network use were outside this job. |
+| Installed Mozaik declarations and registry | Checked `supportedModels: GenerativeModel[]` and the Haiku 4.5, Sonnet 5.5 and Gemini 3.5 Flash registry entries. No new Mozaik API names were introduced. |
+| `npm run trace -- runs/live-8/trace.jsonl` | Confirmed 22 completed tasks and analysis-loop overlaps of 5,901 / 6,729 / 6,640 ms. Three Critic-to-Writer revisions plus four producer-validation repairs. The checked-in [readable report](docs/live-8-trace-report.md) exactly matches the script output. |
+| Live summary/trace reconciliation | Live-8 records 3/3 accepted, 315.099 seconds from `run_started` to `run_finished`, peak inference 2 and $1.181064 estimated accounted cost. Default policy fields now match its recorded policy, including shared $3/$15 planning rates; these are not verified prices or charges. |
+| Relative links and architecture | 45 relative file links across README, NEXT_STEPS, demo README and API-check note resolve. README's Mermaid block exactly matches `docs/architecture.mmd`. Diagram review included the separate authored-fixture mock entry. |
+| `git diff --check`; preserved-artifact checks | No whitespace errors. `runs/`, `docs/prep/`, package versions and the lockfile remain unchanged. Raw `data/` remains untracked and ignored. |
+| Independent read-only review | No material findings. Reconciled defaults, role overrides, standalone demo, trace figures, links, diagram and M5 verification record. Reused the executed test results; did not run installation or providers. |
+
+The updated demo embeds a small authored fixture set and exports its source records beside the evidence ledgers; it does not copy organizer data or link authored records to the organizer repository. The ordinary CLI retains its explicit dataset requirement. All live defaults, including every role override, are still validated against the selected provider before inference. Existing environment overrides are not rewritten.
+
+Verification does not establish new live convergence, human/domain approval of the briefs, current provider availability/prices, or an operational EINSTEIN/Stars integration. The eight preserved live runs are historical evidence, with failures and later successes distinguished in the README.
+
 ## M4 — offline verification, 30 October 2026
 
 No provider calls, dependency installation, dataset downloads, training or commits were performed for M4. Historical `runs/live-1` through `runs/live-6` are unchanged. M4 live acceptance remains unverified.

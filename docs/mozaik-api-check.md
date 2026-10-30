@@ -14,7 +14,7 @@ Checked the installed `node_modules/@mozaik-ai/core/dist/index.d.ts` before impl
 
 The [official custom inference runner example](https://github.com/jigjoy-ai/mozaik-examples/blob/8e063bdf198de830567721a12bb1581c95a5ae78/custom-inference-runner/src/runner.ts) returns `ModelMessageItem.rehydrate`, unknown token usage and a terminal `inference.output` stream event. Our mock follows that pattern and uses local domain recipes. It is not a real language model.
 
-The [official installation documentation](https://docs.jigjoy.ai/docs/installation), [models documentation](https://docs.jigjoy.ai/docs/models), preparation reference, and installed provider implementation identify `GEMINI_API_KEY` and `ANTHROPIC_API_KEY`. Mozaik's registry uses provider `google` for Gemini. Names default to `gemini-3.5-flash` and `claude-haiku-4-5` respectively; model availability at a real account is untested.
+The [official installation documentation](https://docs.jigjoy.ai/docs/installation), [models documentation](https://docs.jigjoy.ai/docs/models), preparation reference, and installed provider implementation identify `GEMINI_API_KEY` and `ANTHROPIC_API_KEY`. Mozaik's registry uses provider `google` for Gemini. M5 checked the public `supportedModels: GenerativeModel[]` declaration and the installed registry entries for `claude-haiku-4-5`, `claude-sonnet-5-5` and `gemini-3.5-flash`. The application's default is Anthropic Haiku for analysts and Sonnet for Writer/Critic; Gemini Flash is the alternative. The preserved live-8 trace records the mixed Anthropic configuration; no new provider run was performed for M5.
 
 Version-specific behavior handled explicitly:
 

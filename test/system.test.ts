@@ -460,8 +460,8 @@ test("invalid policy and provider combinations fail before calling a provider", 
     /ANTHROPIC_API_KEY/,
   );
   assert.equal(
-    modelConfig("live", { GEMINI_API_KEY: "fixture" }).model,
-    "gemini-3.5-flash-lite",
+    modelConfig("live", { PROVIDER: "gemini", GEMINI_API_KEY: "fixture" }).model,
+    "gemini-3.5-flash",
   );
   assert.equal(
     modelConfig("live", { PROVIDER: "anthropic", ANTHROPIC_API_KEY: "fixture" })

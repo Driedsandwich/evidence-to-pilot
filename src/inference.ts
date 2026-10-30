@@ -51,8 +51,8 @@ export const defaultPolicy: Policy = {
   budgetUsd: 2,
   retries: 1,
   timeoutMs: 90000,
-  inputRate: 1,
-  outputRate: 5,
+  inputRate: 3,
+  outputRate: 15,
   maxOutputTokens: 4096,
   maxRetryWaitMs: 120000,
   retryBaseMs: 1000,
@@ -125,15 +125,17 @@ export function modelConfig(
   role?: Role,
 ): { model: string; provider: string } {
   if (mode === "mock") return { model: "mock-evidence-v1", provider: "mock" };
-  const provider = env.PROVIDER ?? "gemini";
+  const provider = env.PROVIDER ?? "anthropic";
   if (!["gemini", "anthropic"].includes(provider))
     throw new Error("PROVIDER must be gemini or anthropic");
   const roleKeys: Record<Role, string> = {
     "Company Analyst": "COMPANY_MODEL", "Research Profiler": "RESEARCH_MODEL",
     "Matchmaker / Proposal Writer": "WRITER_MODEL", Critic: "CRITIC_MODEL",
   };
-  const model = (role && env[roleKeys[role]]) || env.MODEL ||
-    (provider === "gemini" ? "gemini-3.5-flash-lite" : "claude-haiku-4-5");
+  const defaultModel = provider === "gemini" ? "gemini-3.5-flash"
+    : role === "Matchmaker / Proposal Writer" || role === "Critic"
+      ? "claude-sonnet-5-5" : "claude-haiku-4-5";
+  const model = (role && env[roleKeys[role]]) || env.MODEL || defaultModel;
   const m = supportedModels.find(
     (m) =>
       m.specification.name === model &&

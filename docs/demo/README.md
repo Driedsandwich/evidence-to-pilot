@@ -1,9 +1,10 @@
 # Full mock demonstration
 
-Regenerated locally during the event from the already-present, pinned organizer snapshot (no download or provider calls in this M3 session):
+Historical M3 mock run on the pinned fictional organizer snapshot. The commands below reproduce its inputs with the current code; outputs and timings can differ. Since M5, `npm run demo` instead uses tiny authored fixtures and needs no data download.
 
 ```bash
-npm run demo
+npm run build
+npm run run -- --mode mock --challenges C001-CH1,C025-CH1,C036-CH1,C101-CH1 --inject-unsupported
 npm run trace -- docs/demo/trace.jsonl
 ```
 
