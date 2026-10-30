@@ -3,8 +3,15 @@ import type { StructuredOutputFormat } from "@mozaik-ai/core";
 import { Dataset, type Candidate } from "./data.js";
 
 const text = z.string().min(1).max(2400);
+const recordId = z.string().min(1).max(200).regex(/^\S+$/, "Record ID must not contain whitespace");
 export const citationSchema = z
-  .object({ recordId: text, field: text, quote: z.string().min(1).max(1600) })
+  .object({
+    recordId: text.describe("Exact recordId from sources, e.g. R1015"),
+    field: text.describe("Exact field key inside that source's fields, e.g. open_to"),
+    quote: z.string().min(1).max(1600).describe(
+      "Exact contiguous excerpt of the field VALUE, not a field path or paraphrase. For string arrays join items with '; '. Example: fields.open_to=['joint projects','industrial PhD'] => quote='joint projects; industrial PhD'.",
+    ),
+  })
   .strict();
 export const companySchema = z
   .object({
@@ -15,8 +22,8 @@ export const companySchema = z
   .strict();
 export const researchSchema = z
   .object({
-    researcherId: z.string().nullable(),
-    evidenceId: z.string().nullable(),
+    researcherId: recordId.nullable(),
+    evidenceId: recordId.nullable(),
     interpretation: text,
     citations: z.array(citationSchema).max(6),
   })
@@ -36,8 +43,8 @@ export const planSchema = z
   .strict();
 export const proposalSchema = z
   .object({
-    researcherId: z.string().nullable(),
-    evidenceId: z.string().nullable(),
+    researcherId: recordId.nullable(),
+    evidenceId: recordId.nullable(),
     rationale: text,
     facts: z.array(citationSchema).max(12),
     plan: planSchema.nullable(),
@@ -150,5 +157,9 @@ export function checkReview(p: Proposal, r: Review): string[] {
     errors.push("Inconsistent acceptance");
   if (r.decision === "no_good_match" && p.researcherId)
     errors.push("Critic must request removal of unsupported pair first");
+  if (r.decision === "no_good_match" && r.issues.length)
+    errors.push("No-good-match cannot leave unresolved issues");
+  if (r.decision === "revise" && !r.issues.length)
+    errors.push("Revision requires an actionable issue for the writer");
   return errors;
 }

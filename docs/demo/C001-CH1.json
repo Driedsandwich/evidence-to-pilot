@@ -5,7 +5,7 @@
   "proposal": {
     "researcherId": "R1008",
     "evidenceId": "SYN-PUB-10477",
-    "rationale": "Proposed fit: test transfer of the cited work to the cited challenge in a bounded pilot. The link records authorship/participation only; the meeting must establish the individual’s role, current interest and resources.",
+    "rationale": "Transfer hypothesis: use the cited ICS anomaly-detection work to design traffic features and unsupervised baselines for a company with no labelled attacks. Test whether periodicity and changes in communication patterns distinguish operational changes from nuisance alerts on the company's Modbus traffic. BACnet transfer remains a separate research question. The work-side link supports participation only; confirm the researcher's contribution, interest and resources.",
     "facts": [
       {
         "recordId": "C001-CH1",
@@ -44,14 +44,14 @@
       }
     ],
     "plan": {
-      "question": "Can a site-specific unsupervised detector reduce nuisance alerts while detecting held-out operational changes without training on attack labels?",
+      "question": "Joint-project topic: label-free monitoring of industrial networks. Can site-specific baselines reduce nuisance alerts while detecting held-out operational changes? A follow-on industrial PhD could study drift-aware calibration across sites and protocols, subject to pilot evidence, supervision and funding agreements.",
       "experiment": "Propose a 6-week offline pilot: compare a statistical baseline with a one-class model on time-separated, de-identified traffic windows. Hold one site out. Replay agreed benign anomalies in an isolated testbed; do not inject attacks into client networks. Treat BACnet transfer as a separate unproven experiment.",
       "metrics": "Agree an alert-review budget in week 1. Proposed gate: at least 30% fewer nuisance alerts than the baseline at equal detection of the agreed replay scenarios. Report alerts/site/day, detection delay, CPU/RAM, and missed scenarios; simulated detection is not proof of real attack coverage.",
       "companyAsk": "Request one engineering contact, a consent and NDA review, a small de-identified traffic export and an appliance for offline benchmarking. Confirm availability before scheduling; do not assume access to every client archive.",
-      "researcherAsk": "Invite the cited researcher to review the statistical baseline, evaluation protocol and failure analysis; confirm their own contribution to the cited work and current availability. No supervision commitment is assumed.",
+      "researcherAsk": "Invite the researcher to specify traffic features, compare a statistical baseline and one-class model, and lead leakage and drift analysis. Ask the company engineer to explain maintenance events and benchmark deployment costs. Confirm contributions and availability before assigning work.",
       "milestones": "Week 1: scope, permissions, site split and baseline. Weeks 2–3: features and two detectors. Weeks 4–5: offline replay and resource measurements. Week 6: reproducible report and joint go/no-go review.",
       "risks": "Normal traffic can already contain attacks; drift may reflect maintenance. Stop if consent or de-identification is inadequate. Test BACnet separately; do not infer BACnet expertise from other protocols.",
-      "meeting": "A 45-minute scoping meeting: engineering lead and researcher inspect one anonymized trace, agree alert costs, name data owners and decide whether a six-week pilot is feasible.",
+      "meeting": "Before a 45-minute meeting, request an approved trace schema, maintenance-event list and hardware limits. Engineering lead and researcher then choose sites, define nuisance alerts and name data owners. Leave with a one-page protocol, named task owners and a dated permission/budget decision before any data transfer.",
       "terms": "Discuss a capped pilot budget before work; company retains raw traffic, researchers receive only approved extracts. Negotiate background IP, prototype rights and a 60-day publication review. All terms are proposed, not agreed."
     }
   },

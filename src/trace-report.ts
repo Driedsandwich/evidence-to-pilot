@@ -44,6 +44,11 @@ export function reportTrace(path: string): string {
     lines.push(
       `- ${r.challengeId}, revision ${r.revision}: ${r.review.decision}. ${r.review.issues.join("; ") || r.review.fitReason}`,
     );
+  lines.push("", "Send-backs to producing agents:");
+  for (const r of rows.filter((r) => r.type === "send_back"))
+    lines.push(`- ${r.challengeId}: ${r.source} → ${r.agent}, correction ${r.round}: ${r.messages.join("; ")}`);
+  for (const r of rows.filter((r) => r.type === "citation_resolved"))
+    lines.push(`- ${r.taskId}: resolved ${r.original.quote} to the cited field text before validation.`);
   const unfinished = rows.filter(
     (r) =>
       r.type === "loop_started" && !loops.some((l) => l.loopId === r.loopId),

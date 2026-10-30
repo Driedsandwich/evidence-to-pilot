@@ -1,5 +1,5 @@
 {
-  "runId": "2026-10-30T09-28-51-397Z-de4f829c",
+  "runId": "2026-10-30T09-55-23-232Z-9749fa9c",
   "mode": "mock",
   "results": [
     {
@@ -27,10 +27,11 @@
   "providerAttempts": 0,
   "mockInvocations": 22,
   "estimatedAccountedUsd": 0,
+  "inFlightProviderRequests": 0,
   "dataSnapshot": {
     "repository": "https://github.com/jigjoy-ai/einstein-matchmaker-data",
     "commit": "4fb99b3749adf0d10b5977089ff4c73f4f522240",
-    "downloadedAt": "2026-10-30T09:03:45.380Z",
+    "downloadedAt": "2026-10-30T09:36:36.789Z",
     "files": {
       "researchers.json": {
         "sha256": "f0894a54adb054224b106e98376b67f34b301e96a6177a92d553389ec80db380",

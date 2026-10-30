@@ -1,5 +1,31 @@
 # Verification record
 
+## Live-1 repair — current local verification, 30 October 2026
+
+Environment: user's macOS laptop, Node **22.22.3**, npm **10.9.8**, installed TypeScript **5.9.3** and Mozaik **4.1.0**. Existing dependencies and organizer data were reused. This session made **no provider calls, network downloads, dependency installs or commits**. No training or dataset-wide model inference was run.
+
+The original `runs/live-1` is a **real failed Gemini run**, not a mock. Its error was `Invalid agent output: Unsupported quote R1015.open_to`. Its raw answer is absent, so the regression reconstructs the reported field-path citation using tiny authored records and checks its IDs/error against the preserved trace. This is not an exact provider-output replay. The old literal substring check rejects the reconstructed path; the repaired workflow resolves it to field text and reaches mock acceptance. A separate invalid-quote regression exercises send-back rather than normalization. The original live artifacts and `docs/prep/` are unchanged.
+
+| Command / check in this repair session | Result |
+| --- | --- |
+| Read installed `node_modules/@mozaik-ai/core/dist/index.d.ts` | Confirmed runtime, context, output, runner and schema APIs before changes. No new Mozaik API was invented. |
+| `npm test` (includes `npm run build`) | **17 tests passed, 0 failed**. Strict TypeScript build passed. Tiny fixtures require no organizer data or credentials. |
+| `npm run demo` | **3 distinct mock proposals accepted after correction; 1 honest mock abstention**. Fresh output copied to `docs/demo/`; run `2026-10-30T09-55-23-232Z-9749fa9c`. |
+| `npm run trace -- docs/demo/trace.jsonl` | 22 completed Mozaik tasks, peak concurrency 2, four overlapping analysis pairs, three Critic send-back cycles. C001 analysis overlap: 28 ms. Zero provider calls; mock usage unknown, cost zero. |
+| Small offline `runWorkflow` packet-size probe on C001/C025/C036, with two scripted Critic revisions each | 24 tasks completed. Applying the runner's byte-count input reservation and 4,096-token output cap at configured $1/$5 per million gives **$0.891778** total reservations; largest single reservation **$0.051527**. Doubling the same packets for one retry each gives **$1.783556**. These are capacity estimates, not provider token measurements/prices. |
+| `git diff --check`; `git ls-files data package-lock.json runs/live-1`; preserved-file diff | No whitespace errors; lockfile already tracked, no raw `data/` files tracked, no changes to `runs/live-1`, `docs/prep/`, package versions or lockfile. |
+| Independent read-only code review, followed by focused re-review | Found empty provider-output and empty-ID gaps; both fixed and regression-tested. Focused static re-review found no remaining material issue in those paths. This does not validate live semantic judgement. |
+
+Regression coverage now includes field-path resolution and mismatched/fabricated/empty-field rejection; malformed JSON, schema, no-answer and reasoning-only output for **all four roles**; exact producer feedback; incomplete Critic coverage returning to the Critic; atomic publication of valid findings only; bounded correction exhaustion; forged model `applicationError` treated as invalid schema; empty researcher IDs; and sibling-loop settlement before run summaries. Existing provider-adapter, limiter, retry, concurrency, citation, attribution and abstention tests remain passing.
+
+During development, the added tests exposed Critic correction feedback being mistaken for proposal defects; those channels are now separate. A mutation in the test injector was isolated by cloning its output before introducing faults. The final test pass includes those corrections and the independent-review fixes. The proposed joint-project and conditional industrial PhD briefs contain 392, 395 and 401 words respectively in rationale plus plan, under the 600-word limit.
+
+Default call capacity is 12 tasks for three unrevised challenges, 18 with one writer–Critic revision each, or 24 with two each. Two producer validation repairs per role/challenge add at most 24 tasks, giving 48 logical tasks and at most 96 provider attempts with one HTTP retry each. Monetary and deadline stops still apply; no promise of live convergence is made. README and NEXT_STEPS explain the original failure, correction bounds, proposed network/Stars integration and the remaining live rerun.
+
+## Historical initial implementation record (before the imported live run)
+
+The following is the prior workspace's verification record, retained as history. Its install, commit and no-live statements describe that initial session, not the repair session above or the later real failed run.
+
 Implementation and checks took place on 30 October 2026 during the event, after 10:00 CET. Environment: Linux, Node 22.23.4, npm 10.9.9, TypeScript 5.9.3. The installed Node binary was outside the initial PATH, so commands used:
 
 ```bash

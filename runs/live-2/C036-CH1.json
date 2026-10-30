@@ -1,0 +1,8 @@
+{
+  "challengeId": "C036-CH1",
+  "status": "stopped",
+  "mode": "live",
+  "proposal": null,
+  "reason": "HTTP_429",
+  "reviews": []
+}

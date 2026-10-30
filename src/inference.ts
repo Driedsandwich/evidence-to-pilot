@@ -41,7 +41,7 @@ export type Policy = {
 export const defaultPolicy: Policy = {
   concurrency: 2,
   rpm: 30,
-  maxAttempts: 32,
+  maxAttempts: 96,
   budgetUsd: 2,
   retries: 1,
   timeoutMs: 90000,
@@ -207,6 +207,8 @@ export class ControlledRunner implements InferenceRunner {
   attempts = 0;
   spent = 0;
   reserved = 0;
+  readonly taskFailures = new Map<string, string>();
+  readonly outputErrors = new Map<string, string>();
   private starts: number[] = [];
   readonly taskTotals = new Map<
     string,
@@ -303,6 +305,15 @@ export class ControlledRunner implements InferenceRunner {
                 1e6
               : null;
           this.spent += cost ?? reserve;
+          // Core 4.1.0 cannot transition from an empty/reasoning-only output.
+          // Agents have no tools: a function call is also invalid output.
+          // Supply a terminal answer event so the workflow can send it back,
+          // retaining actual usage rather than classifying it as HTTP failure.
+          if (!output.items.some((item) => item instanceof ModelMessageItem) ||
+              output.items.some((item) => item.type === "function_call")) {
+            this.outputErrors.set(taskId, "Agent returned no text answer or an unexpected tool call; return the requested JSON object");
+            return { ...output, items: [ModelMessageItem.rehydrate({ text: "" })] };
+          }
           return output;
         } catch (error) {
           const status =
@@ -371,6 +382,7 @@ export class ControlledRunner implements InferenceRunner {
       // Mozaik 4.1.0 does not catch rejected runLoop promises. Carry failures
       // through a typed application envelope, never an accepted proposal.
       const code = error instanceof Error ? error.message : "INFERENCE_FAILURE";
+      this.taskFailures.set(taskId, code);
       this.trace.write({ ...meta, type: "task_failure", errorCode: code });
       return jsonOutput({ applicationError: code });
     }

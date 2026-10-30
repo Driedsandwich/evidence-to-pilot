@@ -60,14 +60,14 @@ export function renderProposal(db: Dataset, r: Result): string {
   lines.push(`**Fit hypothesis / search outcome:** ${safe(p.rationale)}`, "");
   if (p.plan) {
     const labels: Record<keyof typeof p.plan, string> = {
-      question: "Research question",
+      question: "Joint project and follow-on research topic",
       experiment: "Proposed experiment",
       metrics: "Proposed decision gate",
       companyAsk: "Company contribution requested",
       researcherAsk: "Researcher contribution requested",
       milestones: "Milestones and deliverables",
       risks: "Risks and stop conditions",
-      meeting: "First meeting",
+      meeting: "First actions and meeting decisions",
       terms: "Proposed data, IP and budget terms",
     };
     for (const [key, label] of Object.entries(labels))

@@ -95,10 +95,22 @@ export class Dataset {
   verify(c: Citation): string[] {
     const source = this.sources.get(c.recordId);
     if (!source) return [`Unknown record ${c.recordId}`];
-    const text = fieldText(source.record[c.field]);
-    return !c.quote.trim() || !text.includes(c.quote)
+    const text = Object.hasOwn(source.record, c.field)
+      ? fieldText(source.record[c.field]) : "";
+    const quote = this.resolveCitation(c).quote;
+    return !quote.trim() || !text.includes(quote)
       ? [`Unsupported quote ${c.recordId}.${c.field}`]
       : [];
+  }
+  resolveCitation(c: Citation): Citation {
+    // Repair only an unambiguous reference to THIS record and field. Never
+    // replace an invented quote, a mismatched path or an unknown/empty field.
+    const record = this.sources.get(c.recordId)?.record;
+    if (record && Object.hasOwn(record, c.field) &&
+        [c.field, `${c.recordId}.${c.field}`].includes(c.quote.trim()) &&
+        fieldText(record[c.field]).trim())
+      return this.cite(c.recordId, c.field, 1600);
+    return c;
   }
   url(id: string): string {
     const s = this.sources.get(id);

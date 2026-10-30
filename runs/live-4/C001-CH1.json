@@ -1,0 +1,79 @@
+{
+  "challengeId": "C001-CH1",
+  "status": "accepted",
+  "mode": "live",
+  "proposal": {
+    "researcherId": "R1015",
+    "evidenceId": "SYN-PUB-10523",
+    "rationale": "We propose evaluating the transfer of Vuk Đukić's autoencoder-based unsupervised anomaly detection framework, which establishes baseline profiles from benign traffic and flags anomalies via reconstruction error without requiring attack labels, to ArmaturaSec's ProtoSense module for Modbus and BACnet streams. While demonstrated effectively on Modbus testbeds, transfer remains a hypothesis because performance on combined Modbus/BACnet multi-protocol industrial captures and resource-constrained embedded firmware has not yet been verified.",
+    "facts": [
+      {
+        "recordId": "C001-CH1",
+        "field": "text",
+        "quote": "We need to detect unusual behaviour on Modbus and BACnet networks without labelled attack data — our clients have never been breached (or don't know it), so we have zero examples of malicious traffic and supervised classifiers are useless to us."
+      },
+      {
+        "recordId": "C001",
+        "field": "rd_capacity",
+        "quote": "We can dedicate one to two engineers part-time to a collaborative project, with access to our traffic archives, our hardware bench, and our existing firmware codebase under NDA."
+      },
+      {
+        "recordId": "R1015",
+        "field": "name",
+        "quote": "Vuk Đukić"
+      },
+      {
+        "recordId": "R1015",
+        "field": "open_to",
+        "quote": "industrial PhD supervision; joint projects"
+      },
+      {
+        "recordId": "SYN-PUB-10523",
+        "field": "title",
+        "quote": "Unsupervised anomaly detection on Modbus traffic"
+      },
+      {
+        "recordId": "SYN-PUB-10523",
+        "field": "abstract",
+        "quote": "Industrial control systems increasingly rely on Modbus, a legacy serial communication protocol widely deployed in manufacturing and critical infrastructure environments. Despite its prevalence, Modbus lacks built-in security mechanisms, making it highly susceptible to network-based attacks. This paper presents an unsupervised anomaly detection framework specifically designed for Modbus traffic analysis. The proposed approach leverages autoencoder-based neural networks trained exclusively on benign traffic to establish a baseline behavioural profile of legitimate industrial communications. Anomalies are identified by measuring reconstruction error against learned normal patterns, without requiring labelled attack data. The framework is evaluated on a synthetic dataset generated from a real-world programmable logic controller testbed, covering scenarios such as unauthorised function code injection, coil manipulation, and replay attacks. Experimental results demonstrate detection rates exceeding 94% across all attack categories, with a false positive rate below 2%. The paper also analyses the impact of traffic window size and encoding granularity on detection performance, offering practical guidance for deployment in resource-constrained industrial environments."
+      }
+    ],
+    "plan": {
+      "question": "Joint project topic: Can autoencoder reconstruction error thresholds be adapted to detect anomalies across both Modbus and BACnet protocols on resource-constrained embedded hardware without labelled attack data? Conditional industrial PhD topic (post-pilot): How can multi-protocol temporal sliding windows and quantization techniques optimize on-device neural reconstruction for zero-day industrial control network threat detection?",
+      "experiment": "Proposed 12-week bench test: Train autoencoder models on ArmaturaSec's multi-terabyte benign traffic captures (Modbus and BACnet). Evaluate anomaly scoring using reconstruction thresholds on testbed-injected function code, coil manipulation, and replay anomaly scenarios executed on the company's hardware bench.",
+      "metrics": "Baseline: Supervised classifier baseline which produced unacceptable false positive rates on unlabelled deployments. Go/No-Go decision threshold: Achieve >90% anomaly detection across synthetic injection tests while maintaining a false positive rate <2% and execution latency <50ms per traffic window on ProtoSense hardware bench.",
+      "companyAsk": "ArmaturaSec role: Provide access to 1-2 part-time engineers, anonymized client traffic archives, hardware bench, and firmware codebase under NDA.",
+      "researcherAsk": "Researcher role: Provide autoencoder network architectures, encoding granularity parameters, and statistical reconstruction thresholding algorithms for protocol anomaly scoring.",
+      "milestones": "Weeks 1-4: Data ingestion and protocol windowing definition; Deliverable D1: Preprocessed traffic baseline set. Weeks 5-8: Model training and on-device inference optimization; Deliverable D2: Bench-deployed autoencoder model. Weeks 9-12: Synthetic injection validation and false positive benchmark; Deliverable D3: Pilot evaluation report.",
+      "risks": "Unknowns include computational overhead of BACnet parsing on edge hardware, sensitivity to multi-protocol traffic drift, and potential latency spikes during window reconstruction.",
+      "meeting": "First-week actions: ArmaturaSec lead prepares traffic archive samples under NDA; Researcher supplies reference autoencoder specifications. Kickoff agenda: Review NDA terms, establish data format conventions, and schedule weekly technical syncs.",
+      "terms": "Negotiable IP/data terms: ArmaturaSec retains existing firmware IP and proprietary traffic archives. Pre-existing academic models remain researcher IP. Jointly developed model adaptors and firmware integration code subject to a non-exclusive commercial license option for ArmaturaSec, pending formal agreement."
+    }
+  },
+  "reason": "Vuk Đukić's publication (SYN-PUB-10523) presents an unsupervised autoencoder framework trained exclusively on benign Modbus traffic to detect anomalies via reconstruction error without requiring labelled attack data. This directly fits ArmaturaSec's C001-CH1 challenge requirement for detecting anomalous behavior without malicious training examples. The draft proposal is completely grounded in exact quotes, maintains strict conditional phrasing for all technical plans, and outlines a clear 12-week bench validation project.",
+  "reviews": [
+    {
+      "decision": "accept",
+      "checkedClaims": [
+        "rationale",
+        "facts.0",
+        "facts.1",
+        "facts.2",
+        "facts.3",
+        "facts.4",
+        "facts.5",
+        "plan.question",
+        "plan.experiment",
+        "plan.metrics",
+        "plan.companyAsk",
+        "plan.researcherAsk",
+        "plan.milestones",
+        "plan.risks",
+        "plan.meeting",
+        "plan.terms"
+      ],
+      "issues": [],
+      "fitReason": "Vuk Đukić's publication (SYN-PUB-10523) presents an unsupervised autoencoder framework trained exclusively on benign Modbus traffic to detect anomalies via reconstruction error without requiring labelled attack data. This directly fits ArmaturaSec's C001-CH1 challenge requirement for detecting anomalous behavior without malicious training examples. The draft proposal is completely grounded in exact quotes, maintains strict conditional phrasing for all technical plans, and outlines a clear 12-week bench validation project."
+    }
+  ]
+}

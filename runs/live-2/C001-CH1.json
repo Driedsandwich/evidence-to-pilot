@@ -1,0 +1,8 @@
+{
+  "challengeId": "C001-CH1",
+  "status": "stopped",
+  "mode": "live",
+  "proposal": null,
+  "reason": "Validation correction limit reached for Critic: Critic omitted rationale; Critic omitted facts.0; Critic omitted facts.1; Critic omitted facts.2; Critic omitted facts.3; Critic omitted facts.4; Critic omitted facts.5; Critic omitted plan.question; Critic omitted plan.experiment; Critic omitted plan.metrics; Critic omitted plan.companyAsk; Critic omitted plan.researcherAsk; Critic omitted plan.milestones; Critic omitted plan.risks; Critic omitted plan.meeting; Critic omitted plan.terms",
+  "reviews": []
+}

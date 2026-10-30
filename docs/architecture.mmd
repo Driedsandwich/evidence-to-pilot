@@ -3,22 +3,32 @@ flowchart TD
     DATA --> OPEN[Mozaik challenge.opened event]
     OPEN --> A[Company Analyst runLoop]
     OPEN --> B[Research Profiler runLoop]
-    A -->|source-cited finding| STATE[(Shared RuntimeState)]
-    B -->|source-cited finding| STATE
-    STATE -->|both findings.ready| W[Matchmaker / Proposal Writer]
-    W -->|draft.ready| C[Critic: mechanical checks plus model review]
-    C -->|revision.requested: bounded feedback| W
-    C -->|accepted or no good match| OUT[Proposal brief, evidence ledger and JSON]
-    C -->|budget, timeout or review limit| STOP[Explicit stopped result]
-    A -.-> R[Shared runner: limiter, retry and budget]
+    A --> AV{Company output valid?}
+    AV -->|errors and previous output| A
+    B --> BV{Research output valid?}
+    BV -->|errors and previous output| B
+    AV -->|validated finding only| STATE[(Shared RuntimeState)]
+    BV -->|validated finding only| STATE
+    STATE -->|both findings.ready; start writer once| W[Matchmaker / Proposal Writer]
+    W --> WV{Draft JSON and schema valid?}
+    WV -->|errors and previous output| W
+    WV -->|draft.ready; citation issues retained| C[Critic: mechanical checks plus model review]
+    C --> CV{Review schema and coverage valid?}
+    CV -->|errors and previous output| C
+    CV -->|writer citation errors or semantic revision| W
+    CV -->|accepted or no good match; checks pass| OUT[Brief, evidence ledger and JSON]
+    AV -->|correction limit reached| STOP[Explicit stopped result]
+    BV -->|correction limit reached| STOP
+    WV -->|correction limit reached| STOP
+    CV -->|correction or review limit reached| STOP
+    A -.-> R[Shared limiter, retry and budget runner]
     B -.-> R
     W -.-> R
     C -.-> R
     R --> MODE{Mode}
-    MODE --> MOCK[Official-pattern mock runner: no network]
-    MODE --> LIVE[Mozaik model registry and native mappers]
-    LIVE --> PROVIDER[Gemini or Anthropic SDK: internal retries off]
-    OPEN -.-> TRACE[Observer: JSONL events and actual loop IDs]
+    MODE --> MOCK[Official-pattern mock runner]
+    MODE --> LIVE[Mozaik registry and native provider mappers]
+    OPEN -.-> TRACE[Observer: JSONL with actual loop IDs]
     A -.-> TRACE
     B -.-> TRACE
     W -.-> TRACE

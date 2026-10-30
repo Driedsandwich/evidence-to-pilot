@@ -6,6 +6,8 @@ import { join } from "node:path";
 import { Socket } from "node:net";
 import {
   ModelContext,
+  ModelMessageItem,
+  ReasoningItem,
   UserMessageItem,
   SemanticEvent,
   type InferenceRunner,
@@ -25,9 +27,11 @@ import {
 } from "../src/inference.js";
 import { runWorkflow } from "../src/workflow.js";
 import { reportTrace } from "../src/trace-report.js";
+import { mockAnswer } from "../src/mock.js";
+import type { Role } from "../src/contracts.js";
 
 // Tiny authored fixtures, not copies of the organizer's dataset. No download.
-function fixture(): Dataset {
+function fixture(liveFailureIds = false): Dataset {
   const db = new Dataset();
   function add(
     kind: string,
@@ -49,10 +53,10 @@ function fixture(): Dataset {
     ["Raspberry packaging mold", "berry packaging film permeability"],
   ];
   domains.forEach(([challenge, evidence], i) => {
-    const companyId = `C90${i + 1}`,
+    const companyId = liveFailureIds && i === 0 ? "C001" : `C90${i + 1}`,
       id = `${companyId}-CH1`,
-      rid = `R900${i + 1}`,
-      wid = `TEST-WORK-${i + 1}`;
+      rid = liveFailureIds && i === 0 ? "R1015" : `R900${i + 1}`,
+      wid = liveFailureIds && i === 0 ? "SYN-PUB-10523" : `TEST-WORK-${i + 1}`;
     add("company", {
       id: companyId,
       name: "Fictional fixture company",
@@ -71,7 +75,7 @@ function fixture(): Dataset {
         name: "Same Name",
         fields: [evidence],
         bio: "",
-        open_to: [],
+        open_to: liveFailureIds && i === 0 ? ["joint projects", "industrial PhD"] : [],
         notes: i === 0 ? "Profile is old; confirm availability." : "",
       },
       [rid],
@@ -601,4 +605,189 @@ test("review bound refuses an unrepaired draft and unknown challenges are explic
   assert.ok(result.results.every((r) => r.proposal === null));
   assert.match(result.results[0].reason, /Review limit/);
   assert.match(result.results[1].reason, /Unknown challenge/);
+});
+
+test("live-1 regression: reconstruct R1015.open_to field-path citation and complete offline", async () => {
+  // The original trace records the failure and candidate IDs, NOT the raw
+  // model answer. This is a reconstruction with authored field values, not a
+  // verbatim provider-response replay or a copy of the organizer dataset.
+  const recorded = rows("runs/live-1/trace.jsonl");
+  const failure = recorded.find((r) => r.type === "challenge_finished");
+  assert.equal(failure.status, "stopped");
+  assert.equal(failure.reason, "Invalid agent output: Unsupported quote R1015.open_to");
+  assert.ok(recorded.find((r) => r.type === "retrieval").candidates.some(
+    (c: any) => c.researcherId === "R1015" && c.evidenceId === "SYN-PUB-10523"));
+  const db = fixture(true);
+  const citation = { recordId: "R1015", field: "open_to", quote: "R1015.open_to" };
+  const field = "joint projects; industrial PhD";
+  assert.equal(field.includes(citation.quote), false, "old literal validator reproduces rejection");
+  assert.deepEqual(db.resolveCitation(citation), { ...citation, quote: field });
+  const result = await runWorkflow(db, {
+    mode: "mock", challengeIds: [failure.challengeId], policy: defaultPolicy,
+    outDir: mkdtempSync(join(tmpdir(), "einstein-live1-replay-")),
+    mockRespond: async (job, input) => {
+      const answer = structuredClone(mockAnswer(db, job)) as any;
+      const prompt = JSON.stringify(input.context.getItems());
+      assert.match(prompt, /exact contiguous field VALUE/);
+      if (job.role === "Research Profiler")
+        answer.citations = answer.citations.map((c: any) => c.field === "open_to" ? citation : c);
+      return jsonOutput(answer);
+    },
+  });
+  assert.equal(result.results[0].status, "accepted");
+  assert.equal(result.results[0].proposal!.facts.find((c) => c.field === "open_to")!.quote, field);
+  const trace = rows(join(result.directory, "trace.jsonl"));
+  assert.ok(trace.some((r) => r.type === "citation_resolved" && r.original.quote === "R1015.open_to"));
+  assert.ok(trace.some((r) => r.type === "agent_output"), "future regressions retain actual answers");
+});
+
+test("citation resolution never repairs fabricated text, mismatched paths, missing or empty fields", () => {
+  const db = fixture(true);
+  for (const quote of ["R1015.open_to", "open_to"])
+    assert.deepEqual(db.verify({ recordId: "R1015", field: "open_to", quote }), []);
+  for (const c of [
+    { recordId: "R1015", field: "open_to", quote: "R1008.open_to" },
+    { recordId: "R1015", field: "open_to", quote: "R1015.bio" },
+    { recordId: "R1015", field: "open_to", quote: "guaranteed supervision" },
+    { recordId: "R1015", field: "bio", quote: "R1015.bio" },
+    { recordId: "R1015", field: "missing", quote: "R1015.missing" },
+    { recordId: "unknown", field: "open_to", quote: "unknown.open_to" },
+    { recordId: "R1015", field: "toString", quote: "R1015.toString" },
+  ]) {
+    assert.deepEqual(db.resolveCitation(c), c);
+    assert.equal(db.verify(c).length, 1);
+  }
+});
+
+test("JSON and schema failures go back to each producing agent with exact feedback; only valid findings publish", async () => {
+  for (const role of ["Company Analyst", "Research Profiler", "Matchmaker / Proposal Writer", "Critic"] as Role[]) {
+    for (const fault of ["json", "schema", "content", "empty", "reasoning"] as const) {
+      const db = fixture();
+      let calls = 0;
+      let feedbackSeen = false;
+      const result = await runWorkflow(db, {
+        mode: "mock", challengeIds: ["C901-CH1"], policy: defaultPolicy,
+        outDir: mkdtempSync(join(tmpdir(), "einstein-sendback-")),
+        mockRespond: async (job, input) => {
+          const answer = structuredClone(mockAnswer(db, job)) as any;
+          if (job.role !== role) return jsonOutput(answer);
+          if (++calls > 1) {
+            if (role === "Matchmaker / Proposal Writer" && fault === "content") {
+              assert.ok(job.errors?.some((e) => e.includes("Unsupported quote")));
+            } else {
+              assert.ok(job.feedback?.messages.length);
+              assert.equal(job.feedback.round, 1);
+              assert.ok(JSON.stringify(input.context.getItems()).includes("validationFeedback"));
+              assert.ok(job.feedback.previousOutput !== undefined);
+            }
+            feedbackSeen = true;
+            return jsonOutput(answer);
+          }
+          if (fault === "json") return {
+            items: [ModelMessageItem.rehydrate({ text: "{broken JSON" })],
+            tokenUsage: undefined, rowResponse: { synthetic: true },
+          };
+          if (fault === "empty" || fault === "reasoning") return {
+            items: fault === "empty" ? [] : [ReasoningItem.rehydrate({
+              content: undefined, encryptedContent: undefined, summary: [],
+            })],
+            tokenUsage: undefined, rowResponse: { synthetic: true },
+          };
+          // A model cannot impersonate the runner's terminal error envelope.
+          if (fault === "schema") return jsonOutput({ applicationError: "CALL_BUDGET_STOP" });
+          if (role === "Critic") answer.checkedClaims = [];
+          else (answer.citations ?? answer.facts)[0].quote = "Unsupported invented evidence";
+          return jsonOutput(answer);
+        },
+      });
+      assert.equal(result.results[0].status, "accepted", `${role}/${fault}`);
+      assert.equal(calls, 2, `${role} repairs its own output`);
+      assert.ok(feedbackSeen);
+      const trace = rows(join(result.directory, "trace.jsonl"));
+      const back = trace.find((r) => r.type === "send_back");
+      assert.equal(back.agent, role);
+      assert.ok(back.messages.length);
+      if (role === "Company Analyst" || role === "Research Profiler") {
+        const writes = trace.filter((r) => r.type === "shared_state_write" && r.agent === role);
+        assert.equal(writes.length, 1);
+        assert.ok(trace.indexOf(writes[0]) > trace.indexOf(back));
+      }
+      if (role === "Critic") assert.equal(trace.filter((r) => r.type === "draft").length, 1,
+        "critic coverage errors must not waste writer revisions");
+    }
+  }
+});
+
+test("empty researcher IDs are repaired before publishing shared findings", async () => {
+  const db = fixture();
+  let calls = 0;
+  const result = await runWorkflow(db, {
+    mode: "mock", challengeIds: ["C901-CH1"], policy: defaultPolicy,
+    outDir: mkdtempSync(join(tmpdir(), "einstein-empty-id-")),
+    mockRespond: async (job) => {
+      if (job.role === "Research Profiler" && ++calls === 1)
+        return jsonOutput({ researcherId: "", evidenceId: "", interpretation: "Unknown", citations: [] });
+      return jsonOutput(mockAnswer(db, job));
+    },
+  });
+  assert.equal(result.results[0].status, "accepted");
+  assert.equal(calls, 2);
+  const trace = rows(join(result.directory, "trace.jsonl"));
+  assert.equal(trace.filter((r) => r.type === "shared_state_write" && r.key === "research").length, 1);
+  assert.equal(trace.find((r) => r.type === "send_back").agent, "Research Profiler");
+});
+
+test("persistent validation failure receives two repairs then stops; summary drains sibling loops", async () => {
+  for (const role of ["Company Analyst", "Critic"] as Role[]) {
+    const db = fixture();
+    let calls = 0;
+    const result = await runWorkflow(db, {
+      mode: "mock", challengeIds: ["C901-CH1"], policy: defaultPolicy,
+      outDir: mkdtempSync(join(tmpdir(), "einstein-bounded-repair-")),
+      mockRespond: async (job) => {
+        if (job.role === role) { calls++; return jsonOutput({ invalid: true }); }
+        if (job.role === "Research Profiler") await sleep(100);
+        return jsonOutput(mockAnswer(db, job));
+      },
+    });
+    assert.equal(calls, 3);
+    assert.equal(result.results[0].status, "stopped");
+    assert.equal(result.results[0].proposal, null);
+    assert.match(result.results[0].reason, /Validation correction limit/);
+    const trace = rows(join(result.directory, "trace.jsonl"));
+    assert.equal(trace.filter((r) => r.type === "send_back").length, 2);
+    assert.equal(trace.at(-1).type, "run_finished");
+    assert.equal(trace.filter((r) => r.type === "loop_started").length,
+      trace.filter((r) => r.type === "loop_finished").length);
+    assert.equal(trace.at(-1).mockInvocations,
+      trace.filter((r) => r.type === "provider_attempt").length);
+  }
+});
+
+test("three challenges finish both critic revision rounds within default call, rate and cost limits", async () => {
+  const db = fixture();
+  const result = await runWorkflow(db, {
+    mode: "mock", challengeIds: ["C901-CH1", "C902-CH1", "C903-CH1"],
+    policy: defaultPolicy,
+    outDir: mkdtempSync(join(tmpdir(), "einstein-three-budget-")),
+    mockRespond: async (job) => {
+      const answer = structuredClone(mockAnswer(db, job)) as any;
+      if (job.role === "Critic" && job.revision < 2) {
+        answer.decision = "revise";
+        answer.issues = ["Clarify the proposed go/no-go decision with the company before any pilot."];
+      }
+      return jsonOutput(answer);
+    },
+  });
+  assert.deepEqual(result.results.map((r) => r.status), ["accepted", "accepted", "accepted"]);
+  const trace = rows(join(result.directory, "trace.jsonl"));
+  const tasks = trace.filter((r) => r.type === "loop_finished");
+  assert.equal(tasks.length, 24);
+  assert.ok(tasks.length <= defaultPolicy.rpm);
+  assert.equal(trace[0].callEstimate.normalTasks, 12);
+  assert.equal(trace[0].callEstimate.boundedTasks, 48);
+  assert.equal(trace[0].callEstimate.boundedProviderAttempts, 96);
+  assert.ok(trace[0].callEstimate.boundedProviderAttempts <= defaultPolicy.maxAttempts);
+  // Costs of mock calls are zero; live bill/semantic convergence is untested.
+  assert.equal(trace.at(-1).estimatedAccountedUsd, 0);
 });
