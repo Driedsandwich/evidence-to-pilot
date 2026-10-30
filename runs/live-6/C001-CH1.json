@@ -1,0 +1,8 @@
+{
+  "challengeId": "C001-CH1",
+  "status": "stopped",
+  "mode": "live",
+  "proposal": null,
+  "reason": "Validation correction limit reached for Research Profiler: Unsupported quote SYN-PUB-10477.abstract; Unsupported quote R1008.open_to",
+  "reviews": []
+}

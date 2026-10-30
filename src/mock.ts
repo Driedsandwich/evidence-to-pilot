@@ -42,15 +42,17 @@ const plans: Record<string, Plan> = {
     question:
       "Joint-project topic: label-free monitoring of industrial networks. Can site-specific baselines reduce nuisance alerts while detecting held-out operational changes? A follow-on industrial PhD could study drift-aware calibration across sites and protocols, subject to pilot evidence, supervision and funding agreements.",
     experiment:
-      "Propose a 6-week offline pilot: compare a statistical baseline with a one-class model on time-separated, de-identified traffic windows. Hold one site out. Replay agreed benign anomalies in an isolated testbed; do not inject attacks into client networks. Treat BACnet transfer as a separate unproven experiment.",
+      "Propose a three-month offline pilot comparing a statistical baseline and a one-class model on time-separated traffic. Hold one site out if enough sites are available. Replay agreed changes in an isolated testbed. Treat BACnet transfer as a separate experiment.",
     metrics:
       "Agree an alert-review budget in week 1. Proposed gate: at least 30% fewer nuisance alerts than the baseline at equal detection of the agreed replay scenarios. Report alerts/site/day, detection delay, CPU/RAM, and missed scenarios; simulated detection is not proof of real attack coverage.",
     companyAsk:
-      "Request one engineering contact, a consent and NDA review, a small de-identified traffic export and an appliance for offline benchmarking. Confirm availability before scheduling; do not assume access to every client archive.",
+      "Request one engineering contact to explain maintenance events, arrange permissions and benchmark an appliance offline. Confirm availability before scheduling.",
     researcherAsk:
-      "Invite the researcher to specify traffic features, compare a statistical baseline and one-class model, and lead leakage and drift analysis. Ask the company engineer to explain maintenance events and benchmark deployment costs. Confirm contributions and availability before assigning work.",
+      "Invite the researcher to specify features, compare detectors and examine leakage and drift. Confirm contribution, availability and resources before assigning work.",
+    dataRequired:
+      "Request an approved traffic schema, de-identified time-stamped Modbus windows, maintenance-event labels and hardware limits. Company retains raw traffic; agree consent, access and retention before transfer.",
     milestones:
-      "Week 1: scope, permissions, site split and baseline. Weeks 2–3: features and two detectors. Weeks 4–5: offline replay and resource measurements. Week 6: reproducible report and joint go/no-go review.",
+      "Month 1 (weeks 1–4): company clears data access; researcher delivers split protocol and statistical baseline. Month 2 (weeks 5–8): researcher compares detectors; company checks alert relevance. Month 3 (weeks 9–12): jointly test held-out windows, report resource costs and decide go/no-go with reproducible scripts.",
     risks:
       "Normal traffic can already contain attacks; drift may reflect maintenance. Stop if consent or de-identification is inadequate. Test BACnet separately; do not infer BACnet expertise from other protocols.",
     meeting:
@@ -60,21 +62,23 @@ const plans: Record<string, Plan> = {
   },
   emc: {
     question:
-      "Joint-project topic: explainable PCB layout screening for EMC risk. Can geometric rules flag actionable hotspots before external testing? A follow-on industrial PhD could study which layout features predict measured emissions across board families and operating conditions, subject to sufficient data and supervision agreement.",
+      "Can PCB layout rules flag actionable EMC hotspots before external testing? A follow-on industrial PhD could examine emission predictors across board families, subject to sufficient data, supervision and funding agreements.",
     experiment:
-      "Propose a 6-week feasibility pilot: extract trace/plane and routing features, implement a small rule checklist, and compare flags with archived scans. Freeze rules before testing each held-out board; include passed boards as controls and one prospective layout review. Treat the output as engineering triage, not compliance certification.",
+      "Propose a three-month feasibility pilot extracting trace/plane features and comparing a rule checklist with archived scans. Freeze rules before each held-out board; include passed boards and one prospective layout review. Output is engineering triage, not certification.",
     metrics:
       "Measure hotspot agreement with scans, false flags per board and engineer review time. Proposed gate: identify a plausible hotspot on every held-out failed board, with at most five actionable false flags per review; a small sample gives uncertain estimates. External lab success remains unproven.",
     companyAsk:
-      "Request NDA-protected Gerbers, netlists, stackups, BOMs and scans for the cited boards; ask a layout engineer to annotate known hotspots and reserve one review session per week.",
+      "Request a layout engineer to annotate hotspots, assess manufacturability and reserve one review session weekly. Confirm board access and staffing.",
     researcherAsk:
-      "Invite the researcher to define feature/rule mappings and interpret emission mechanisms; ask the company engineer to annotate scans and assess whether each suggested change is manufacturable. Confirm personal contributions, availability and code rights before reuse.",
+      "Invite the researcher to map features to rules, interpret emission mechanisms and analyze held-out results. Confirm personal contribution, availability and code rights before reuse.",
+    dataRequired:
+      "Request NDA-protected Gerbers, netlists, stackups, BOMs and emission scans for passed and failed boards, with operating modes and scan conditions. Agree access and retention before transfer.",
     milestones:
-      "Week 1: NDA, board inventory and annotation rules. Weeks 2–3: parser and baseline checklist. Weeks 4–5: held-out comparisons and one layout review. Week 6: checklist, scripts, evidence log and go/no-go meeting.",
+      "Month 1 (weeks 1–4): company provides approved inventory and annotations; researcher delivers baseline checklist. Month 2 (weeks 5–8): researcher implements rules; company reviews held-out flags. Month 3 (weeks 9–12): jointly review a prospective layout and deliver scripts, evidence log and go/no-go recommendation.",
     risks:
       "A handful of boards cannot establish generalization. Enclosure, cables and operating mode can dominate emissions. Stop if netlists or scan conditions are unavailable; do not promise certification or avoided retest fees.",
     meeting:
-      "Before a 45-minute meeting, request an approved board-file inventory and scan conditions. Layout lead and researcher inspect one failed and one passed design, reserve held-out boards and agree who annotates each scan. Leave with a file checklist, proposed rule baseline and a dated budget/access decision.",
+      "In week 1, layout lead and researcher inspect approved failed/passed design examples, reserve held-out boards and assign scan annotations. Leave the meeting with a file checklist, baseline and dated budget/access decision.",
     terms:
       "Agree a capped feasibility fee or joint funding application only after scoping. Keep client designs confidential, separate background methods from new scripts, and negotiate prototype ownership and publication review.",
   },
@@ -82,15 +86,17 @@ const plans: Record<string, Plan> = {
     question:
       "Joint-project topic: raspberry packaging for a 14-day cold chain. Can film permeability and headspace conditions improve shelf life? A follow-on industrial PhD could model how temperature excursions and harvest-lot variation change the useful permeability range, subject to safe pilot results and supervision/funding agreements.",
     experiment:
-      "Propose an 8-week pilot: randomize trays within three harvest lots to the current pack or three candidate films. Keep fill weight and handling comparable; log temperature and headspace gases. Assess mold, firmness and sensory acceptability on days 0, 7, 9, 12 and 14. A food-science review must set sample sizes and safe sensory-testing rules.",
+      "Propose a three-month pilot randomizing trays within three harvest lots to current packaging or three candidate films. Log temperature and headspace gases; compare mold, firmness and acceptability through day 14. Obtain a food-science protocol covering sample size and safe sensory testing.",
     metrics:
       "Proposed gate: a candidate meets buyer-agreed mold, firmness and sensory criteria on day 14 in all pilot lots, without unsafe gas conditions. Report lot-level uncertainty and cost per pack. Day 14 is a target to test, never an outcome guaranteed by prior work.",
     companyAsk:
-      "Request sample fruit, current packaging specifications, cold-chain logs and a quality contact. Confirm access to storage and measurements, and cap the sample and consumables budget before the first lot.",
+      "Request a quality contact to arrange fruit, document handling and coordinate buyer criteria. Confirm storage, measurement access and a consumables budget before starting.",
     researcherAsk:
-      "Invite the researcher to select permeability ranges, design randomized comparisons and analyze lot variation. Ask company quality staff to document handling and buyer rejection criteria. Confirm personal contribution, measurement access and availability; no lab or supervision commitment is assumed.",
+      "Invite the researcher to select permeability ranges, design randomized comparisons and analyze lot variation. Confirm contribution and availability; no laboratory or supervision commitment is assumed.",
+    dataRequired:
+      "Request current film specifications, lot and harvest dates, cold-chain logs, buyer rejection thresholds and approved temperature/headspace measurements. Agree who supplies safe microbiology and sensory assessments.",
     milestones:
-      "Weeks 1–2: buyer acceptance criteria, film sourcing and protocol. Weeks 3–6: three staggered lot trials with temperature logging. Week 7: uncertainty and cost analysis. Week 8: packaging recommendation or documented no-go.",
+      "Month 1 (weeks 1–4): company confirms harvest windows and buyer criteria; researcher delivers reviewed protocol and film shortlist. Month 2 (weeks 5–8): jointly run three staggered lot trials. Month 3 (weeks 9–12): researcher reports uncertainty and cost; company assesses feasibility; both deliver a recommendation or documented no-go.",
     risks:
       "Mixed-berry results may not transfer to raspberry-only packs or fluctuating transport temperatures. Anaerobic conditions and sensory rejection can defeat longer shelf life. Do not release experimental packs for sale without the appropriate safety review.",
     meeting:
@@ -166,8 +172,8 @@ export function mockAnswer(db: Dataset, job: Job): unknown {
       if (fieldText(db.researchers.get(candidate.researcherId)!.record[field]))
         citations.push(db.cite(candidate.researcherId, field, 250));
     return {
-      ...candidate,
-      matchedTerms: undefined,
+      researcherId: candidate.researcherId,
+      evidenceId: candidate.evidenceId,
       interpretation:
         "MOCK hypothesis: the work addresses a related technical mechanism. Work-side ID attribution establishes participation, not sole authorship, personal mastery, availability or consent.",
       citations,
@@ -205,10 +211,12 @@ export function mockAnswer(db: Dataset, job: Job): unknown {
       : p.researcherId
         ? "accept"
         : "no_good_match",
-    checkedClaims: claimPaths(p),
+    verdicts: claimPaths(p).map((path) => ({
+      path,
+      status: path.startsWith("facts.") && db.verify(p.facts[Number(path.slice(6))]).length
+        ? "unsupported" : "ok",
+    })),
     issues: job.errors ?? [],
-    fitReason:
-      "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility.",
   };
 }
 /** Official custom-inference-runner pattern: run -> ModelMessageItem,

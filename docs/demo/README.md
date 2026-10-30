@@ -1,13 +1,13 @@
 # Full mock demonstration
 
-Regenerated locally during the event from the already-present, pinned organizer snapshot (no download or provider calls in this repair session):
+Regenerated locally during the event from the already-present, pinned organizer snapshot (no download or provider calls in this M3 session):
 
 ```bash
 npm run demo
 npm run trace -- docs/demo/trace.jsonl
 ```
 
-Run ID: `2026-10-30T09-55-23-232Z-9749fa9c`. These files are the copied output of that complete run. Data snapshot: `4fb99b3749adf0d10b5977089ff4c73f4f522240`. All people, companies and work records cited here are fictional organizer data.
+Run ID: `2026-10-30T10-30-54-911Z-b7998553`. These files are the copied output of that complete run. Data snapshot: `4fb99b3749adf0d10b5977089ff4c73f4f522240`. All people, companies and work records cited here are fictional organizer data.
 
 | Challenge | Researcher | Outcome | Brief | Evidence |
 | --- | --- | --- | --- | --- |
@@ -16,17 +16,17 @@ Run ID: `2026-10-30T09-55-23-232Z-9749fa9c`. These files are the copied output o
 | C036-CH1 | R0976 | mock accepted after correction | [Packaging pilot](C036-CH1.md) | [ledger](C036-CH1.evidence.md) |
 | C101-CH1 | none | mock abstention | [No good match](C101-CH1.md) | [ledger](C101-CH1.evidence.md) |
 
-The three proposals contain 392–401 whitespace-delimited words in rationale plus plan, below the 600-word cap; their source quotations are in separate ledgers. Targets, resources, research follow-ons and terms are proposed for discussion, not achieved or agreed.
+The three proposals contain 376–409 whitespace-delimited words in rationale plus plan, below the 600-word cap; their source quotations are in separate ledgers. Targets, resources, research follow-ons and terms are proposed for discussion, not achieved or agreed.
 
 ## Where the Critic stepped in
 
 The demo intentionally inserted an unsupported 99% success guarantee in the first draft's researcher biography citation. For C001-CH1:
 
-1. Company Analyst and Research Profiler loops overlapped for **28 ms** and wrote separate cited findings into shared state.
+1. Company Analyst and Research Profiler loops overlapped for **27 ms** and wrote separate cited findings into shared state.
 2. Writer revision 0 included the labelled test fault.
-3. Critic loop `f83c7d57-794a-4a06-834e-1904b74bfd42` recorded `Unsupported quote R1008.bio` and requested revision.
+3. Critic loop `30457e47-4f13-4b39-be69-5cb605dc3dbc` recorded `Unsupported quote R1008.bio` and requested revision.
 4. Writer revision 1 removed the false claim.
-5. Critic loop `a992f62c-ad89-4a2c-9414-1c90fb15b62a` accepted the repaired mock proposal.
+5. Critic loop `9e864874-531e-4855-8acb-26d8286834cf` accepted the repaired mock proposal.
 
 The same injected-fault loop ran for the other two matched pairs. The quantum challenge did not receive an invented pair: the mock abstained because its domain recipes do not cover that challenge. This is not a judgement that UNS lacks quantum expertise.
 
@@ -34,4 +34,4 @@ The run completed **22 actual Mozaik loops**, with peak concurrent inference **2
 
 **This is a scripted mock demonstration.** The injected fault is deliberate; no live hallucination, live semantic review or provider performance was measured. No introductions were sent.
 
-For the separate real Gemini failure, see [runs/live-1](../../runs/live-1/trace.jsonl). That run stopped before drafting; this regenerated demonstration does not claim that the live repair has succeeded.
+For separate live evidence, see the [four-run results](../../README.md#recorded-live-results): one accepted proposal and nine stopped challenge attempts. Those runs predate M3; this regenerated mock demonstration does not establish live recovery. The three pilots now specify Month 1–3 milestones and requested data. Critic outputs contain one compact verdict per claim.

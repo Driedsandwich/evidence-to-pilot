@@ -42,7 +42,7 @@ export function reportTrace(path: string): string {
   lines.push("", "Critic interventions:");
   for (const r of rows.filter((r) => r.type === "critic_review"))
     lines.push(
-      `- ${r.challengeId}, revision ${r.revision}: ${r.review.decision}. ${r.review.issues.join("; ") || r.review.fitReason}`,
+      `- ${r.challengeId}, revision ${r.revision}: ${r.review.decision}. ${r.review.issues.join("; ") || (r.review.fitReason ?? "All required claim verdicts passed")}`,
     );
   lines.push("", "Send-backs to producing agents:");
   for (const r of rows.filter((r) => r.type === "send_back"))

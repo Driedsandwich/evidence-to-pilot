@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import Anthropic from "@anthropic-ai/sdk";
+import { jsonSchemaOutputFormat } from "@anthropic-ai/sdk/helpers/json-schema";
 import { GoogleGenAI, type GenerateContentParameters } from "@google/genai";
 import {
   defineRuntime,
@@ -14,6 +15,8 @@ import {
   type InferenceInput,
   type InferenceOutput,
 } from "@mozaik-ai/core";
+import { providerErrorDetails, retryAfterMs, readErrorBody } from "./provider-errors.js";
+import type { Role } from "./contracts.js";
 
 export type Usage = {
   inputTokens: number;
@@ -37,6 +40,9 @@ export type Policy = {
   inputRate: number;
   outputRate: number;
   maxOutputTokens: number;
+  maxRetryWaitMs: number;
+  retryBaseMs: number;
+  retryMaxMs: number;
 };
 export const defaultPolicy: Policy = {
   concurrency: 2,
@@ -48,6 +54,9 @@ export const defaultPolicy: Policy = {
   inputRate: 1,
   outputRate: 5,
   maxOutputTokens: 4096,
+  maxRetryWaitMs: 120000,
+  retryBaseMs: 1000,
+  retryMaxMs: 30000,
 };
 export function policyFromEnv(env = process.env): Policy {
   const keys: Record<keyof Policy, string> = {
@@ -60,6 +69,9 @@ export function policyFromEnv(env = process.env): Policy {
     inputRate: "INPUT_USD_PER_MILLION",
     outputRate: "OUTPUT_USD_PER_MILLION",
     maxOutputTokens: "MAX_OUTPUT_TOKENS",
+    maxRetryWaitMs: "MAX_RETRY_WAIT_MS",
+    retryBaseMs: "RETRY_BASE_MS",
+    retryMaxMs: "RETRY_MAX_MS",
   };
   const p = { ...defaultPolicy };
   for (const k of Object.keys(keys) as (keyof Policy)[])
@@ -79,6 +91,7 @@ export function policyFromEnv(env = process.env): Policy {
     throw new Error("MAX_RETRIES must be 0..3");
   if (!p.inputRate || !p.outputRate)
     throw new Error("Planning token rates must be positive");
+  if (p.retryMaxMs < p.retryBaseMs) throw new Error("RETRY_MAX_MS must be >= RETRY_BASE_MS");
   return p;
 }
 export class Trace {
@@ -109,14 +122,18 @@ export function disableCloudTelemetry(): void {
 export function modelConfig(
   mode: "mock" | "live",
   env = process.env,
+  role?: Role,
 ): { model: string; provider: string } {
   if (mode === "mock") return { model: "mock-evidence-v1", provider: "mock" };
   const provider = env.PROVIDER ?? "gemini";
   if (!["gemini", "anthropic"].includes(provider))
     throw new Error("PROVIDER must be gemini or anthropic");
-  const model =
-    env.MODEL ||
-    (provider === "gemini" ? "gemini-3.5-flash-lite" : "claude-haiku-4-5");
+  const roleKeys: Record<Role, string> = {
+    "Company Analyst": "COMPANY_MODEL", "Research Profiler": "RESEARCH_MODEL",
+    "Matchmaker / Proposal Writer": "WRITER_MODEL", Critic: "CRITIC_MODEL",
+  };
+  const model = (role && env[roleKeys[role]]) || env.MODEL ||
+    (provider === "gemini" ? "gemini-3.5-flash" : "claude-haiku-4-5");
   const m = supportedModels.find(
     (m) =>
       m.specification.name === model &&
@@ -159,21 +176,48 @@ export function liveRunner(
     async infer(input: InferenceInput): Promise<InferenceOutput> {
       if (gemini) {
         const request = mapper.toRequest(input) as GenerateContentParameters;
+        let failure: ReturnType<typeof providerErrorDetails> | undefined;
         request.config = {
           ...request.config,
+          // The mapper uses the OpenAPI subset; our Zod schema is JSON Schema.
+          responseSchema: undefined,
+          responseJsonSchema: input.structuredOutput?.schema,
           maxOutputTokens: input.maxOutputTokens,
           httpOptions: {
             timeout: policy.timeoutMs,
             retryOptions: { attempts: 1 },
+            // ApiError drops response headers. Capture only sanitized diagnostics
+            // in this request-local closure, never the request or credentials.
+            fetch: async (url, init) => {
+              const response = await globalThis.fetch(url, init);
+              if (!response.ok) {
+                failure = providerErrorDetails({ status: response.status, headers: response.headers });
+                try {
+                  failure = providerErrorDetails({ status: response.status,
+                    body: await readErrorBody(response.clone()), headers: response.headers });
+                } catch { /* Keep status/Retry-After even when the error body stream fails. */ }
+              }
+              return response;
+            },
           },
         };
-        return mapper.toResponse(await gemini.models.generateContent(request));
+        try {
+          return mapper.toResponse(await gemini.models.generateContent(request));
+        } catch (error) {
+          if (failure) throw Object.assign(new Error("Provider request failed"), failure);
+          throw error;
+        }
       }
+      const request: Anthropic.MessageCreateParamsNonStreaming = {
+        ...mapper.toRequest(input), stream: false,
+      };
+      if (input.structuredOutput) request.output_config = {
+        ...request.output_config,
+        // Official SDK normalization; full constraints remain in local Zod checks.
+        format: jsonSchemaOutputFormat({ ...input.structuredOutput.schema, type: "object" }),
+      };
       return mapper.toResponse(
-        await anthropic!.messages.create({
-          ...mapper.toRequest(input),
-          stream: false,
-        }),
+        await anthropic!.messages.create(request),
       );
     },
     async *stream(input: InferenceInput): AsyncGenerator<SemanticEvent> {
@@ -207,6 +251,7 @@ export class ControlledRunner implements InferenceRunner {
   attempts = 0;
   spent = 0;
   reserved = 0;
+  retryWaitMs = 0;
   readonly taskFailures = new Map<string, string>();
   readonly outputErrors = new Map<string, string>();
   private starts: number[] = [];
@@ -234,9 +279,9 @@ export class ControlledRunner implements InferenceRunner {
   async run(input: InferenceInput): Promise<InferenceOutput> {
     const { runId, taskId, agent, loopId, model } = this.meta(input.context.id);
     const meta = { runId, taskId, agent, loopId, model };
-    const deadline = Date.now() + this.policy.timeoutMs;
     try {
       for (let attempt = 0; attempt <= this.policy.retries; attempt++) {
+        const deadline = Date.now() + this.policy.timeoutMs;
         const reserve = this.mock ? 0 : this.reserveCost(input);
         while (true) {
           if (Date.now() >= deadline) throw new Error("ADMISSION_TIMEOUT");
@@ -267,6 +312,8 @@ export class ControlledRunner implements InferenceRunner {
         let errorCode: string | null = null;
         let timer: ReturnType<typeof setTimeout> | undefined;
         let timedOut = false;
+        let failure: ReturnType<typeof providerErrorDetails> | null = null;
+        let retryDelay = 0;
         try {
           const pending = this.inner.run(input);
           // Keep capacity reserved until the actual request settles on timeout.
@@ -316,9 +363,8 @@ export class ControlledRunner implements InferenceRunner {
           }
           return output;
         } catch (error) {
-          const status =
-            (error as { status?: number; code?: number })?.status ??
-            (error as { code?: number })?.code;
+          failure = providerErrorDetails(error);
+          const status = failure.status;
           errorCode = timedOut
             ? "PROVIDER_TIMEOUT"
             : typeof status === "number"
@@ -334,6 +380,18 @@ export class ControlledRunner implements InferenceRunner {
             )
           )
             throw new Error(errorCode);
+          const cap = Math.min(this.policy.retryMaxMs, this.policy.retryBaseMs * 2 ** attempt);
+          // Equal jitter: half to full exponential delay; server delay is a floor.
+          retryDelay = Math.max(Math.ceil(cap / 2 + Math.random() * cap / 2),
+            retryAfterMs(failure.retryAfter, Date.now()) ?? 0);
+          if (retryDelay > this.policy.maxRetryWaitMs - this.retryWaitMs) {
+            this.trace.write({ ...meta, type: "retry_stopped", errorCode,
+              reason: "RUN_RETRY_WAIT_BUDGET", requestedWaitMs: retryDelay,
+              retryWaitMs: this.retryWaitMs });
+            throw new Error(errorCode);
+          }
+          // Reserve before yielding so concurrent agents share one run budget.
+          this.retryWaitMs += retryDelay;
         } finally {
           clearTimeout(timer);
           if (!timedOut) this.active--;
@@ -373,9 +431,13 @@ export class ControlledRunner implements InferenceRunner {
               : "configured planning rates; not a bill",
             reservationUsd: reserve,
             errorCode,
+            errorStatus: failure?.status ?? null,
+            errorBody: failure?.body ?? null,
           });
         }
-        await sleep(100 * 2 ** attempt);
+        this.trace.write({ ...meta, type: "retry_scheduled", attempt: attempt + 1,
+          errorCode, waitMs: retryDelay, retryWaitMs: this.retryWaitMs });
+        await sleep(retryDelay);
       }
       throw new Error("RETRIES_EXHAUSTED");
     } catch (error) {

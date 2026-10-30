@@ -45,68 +45,180 @@
     ],
     "plan": {
       "question": "Joint-project topic: label-free monitoring of industrial networks. Can site-specific baselines reduce nuisance alerts while detecting held-out operational changes? A follow-on industrial PhD could study drift-aware calibration across sites and protocols, subject to pilot evidence, supervision and funding agreements.",
-      "experiment": "Propose a 6-week offline pilot: compare a statistical baseline with a one-class model on time-separated, de-identified traffic windows. Hold one site out. Replay agreed benign anomalies in an isolated testbed; do not inject attacks into client networks. Treat BACnet transfer as a separate unproven experiment.",
+      "experiment": "Propose a three-month offline pilot comparing a statistical baseline and a one-class model on time-separated traffic. Hold one site out if enough sites are available. Replay agreed changes in an isolated testbed. Treat BACnet transfer as a separate experiment.",
       "metrics": "Agree an alert-review budget in week 1. Proposed gate: at least 30% fewer nuisance alerts than the baseline at equal detection of the agreed replay scenarios. Report alerts/site/day, detection delay, CPU/RAM, and missed scenarios; simulated detection is not proof of real attack coverage.",
-      "companyAsk": "Request one engineering contact, a consent and NDA review, a small de-identified traffic export and an appliance for offline benchmarking. Confirm availability before scheduling; do not assume access to every client archive.",
-      "researcherAsk": "Invite the researcher to specify traffic features, compare a statistical baseline and one-class model, and lead leakage and drift analysis. Ask the company engineer to explain maintenance events and benchmark deployment costs. Confirm contributions and availability before assigning work.",
-      "milestones": "Week 1: scope, permissions, site split and baseline. Weeks 2–3: features and two detectors. Weeks 4–5: offline replay and resource measurements. Week 6: reproducible report and joint go/no-go review.",
+      "companyAsk": "Request one engineering contact to explain maintenance events, arrange permissions and benchmark an appliance offline. Confirm availability before scheduling.",
+      "researcherAsk": "Invite the researcher to specify features, compare detectors and examine leakage and drift. Confirm contribution, availability and resources before assigning work.",
+      "dataRequired": "Request an approved traffic schema, de-identified time-stamped Modbus windows, maintenance-event labels and hardware limits. Company retains raw traffic; agree consent, access and retention before transfer.",
+      "milestones": "Month 1 (weeks 1–4): company clears data access; researcher delivers split protocol and statistical baseline. Month 2 (weeks 5–8): researcher compares detectors; company checks alert relevance. Month 3 (weeks 9–12): jointly test held-out windows, report resource costs and decide go/no-go with reproducible scripts.",
       "risks": "Normal traffic can already contain attacks; drift may reflect maintenance. Stop if consent or de-identification is inadequate. Test BACnet separately; do not infer BACnet expertise from other protocols.",
       "meeting": "Before a 45-minute meeting, request an approved trace schema, maintenance-event list and hardware limits. Engineering lead and researcher then choose sites, define nuisance alerts and name data owners. Leave with a one-page protocol, named task owners and a dated permission/budget decision before any data transfer.",
       "terms": "Discuss a capped pilot budget before work; company retains raw traffic, researchers receive only approved extracts. Negotiate background IP, prototype rights and a 60-day publication review. All terms are proposed, not agreed."
     }
   },
-  "reason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility.",
+  "reason": "Every required claim passed the Critic and mechanical checks",
   "reviews": [
     {
       "decision": "revise",
-      "checkedClaims": [
-        "rationale",
-        "facts.0",
-        "facts.1",
-        "facts.2",
-        "facts.3",
-        "facts.4",
-        "facts.5",
-        "facts.6",
-        "facts.7",
-        "plan.question",
-        "plan.experiment",
-        "plan.metrics",
-        "plan.companyAsk",
-        "plan.researcherAsk",
-        "plan.milestones",
-        "plan.risks",
-        "plan.meeting",
-        "plan.terms"
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "unsupported"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "ok"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "ok"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
       ],
       "issues": [
         "Unsupported quote R1008.bio"
-      ],
-      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+      ]
     },
     {
       "decision": "accept",
-      "checkedClaims": [
-        "rationale",
-        "facts.0",
-        "facts.1",
-        "facts.2",
-        "facts.3",
-        "facts.4",
-        "facts.5",
-        "facts.6",
-        "plan.question",
-        "plan.experiment",
-        "plan.metrics",
-        "plan.companyAsk",
-        "plan.researcherAsk",
-        "plan.milestones",
-        "plan.risks",
-        "plan.meeting",
-        "plan.terms"
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "ok"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "ok"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
       ],
-      "issues": [],
-      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+      "issues": []
     }
   ]
 }

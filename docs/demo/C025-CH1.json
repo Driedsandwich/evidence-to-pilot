@@ -44,69 +44,181 @@
       }
     ],
     "plan": {
-      "question": "Joint-project topic: explainable PCB layout screening for EMC risk. Can geometric rules flag actionable hotspots before external testing? A follow-on industrial PhD could study which layout features predict measured emissions across board families and operating conditions, subject to sufficient data and supervision agreement.",
-      "experiment": "Propose a 6-week feasibility pilot: extract trace/plane and routing features, implement a small rule checklist, and compare flags with archived scans. Freeze rules before testing each held-out board; include passed boards as controls and one prospective layout review. Treat the output as engineering triage, not compliance certification.",
+      "question": "Can PCB layout rules flag actionable EMC hotspots before external testing? A follow-on industrial PhD could examine emission predictors across board families, subject to sufficient data, supervision and funding agreements.",
+      "experiment": "Propose a three-month feasibility pilot extracting trace/plane features and comparing a rule checklist with archived scans. Freeze rules before each held-out board; include passed boards and one prospective layout review. Output is engineering triage, not certification.",
       "metrics": "Measure hotspot agreement with scans, false flags per board and engineer review time. Proposed gate: identify a plausible hotspot on every held-out failed board, with at most five actionable false flags per review; a small sample gives uncertain estimates. External lab success remains unproven.",
-      "companyAsk": "Request NDA-protected Gerbers, netlists, stackups, BOMs and scans for the cited boards; ask a layout engineer to annotate known hotspots and reserve one review session per week.",
-      "researcherAsk": "Invite the researcher to define feature/rule mappings and interpret emission mechanisms; ask the company engineer to annotate scans and assess whether each suggested change is manufacturable. Confirm personal contributions, availability and code rights before reuse.",
-      "milestones": "Week 1: NDA, board inventory and annotation rules. Weeks 2–3: parser and baseline checklist. Weeks 4–5: held-out comparisons and one layout review. Week 6: checklist, scripts, evidence log and go/no-go meeting.",
+      "companyAsk": "Request a layout engineer to annotate hotspots, assess manufacturability and reserve one review session weekly. Confirm board access and staffing.",
+      "researcherAsk": "Invite the researcher to map features to rules, interpret emission mechanisms and analyze held-out results. Confirm personal contribution, availability and code rights before reuse.",
+      "dataRequired": "Request NDA-protected Gerbers, netlists, stackups, BOMs and emission scans for passed and failed boards, with operating modes and scan conditions. Agree access and retention before transfer.",
+      "milestones": "Month 1 (weeks 1–4): company provides approved inventory and annotations; researcher delivers baseline checklist. Month 2 (weeks 5–8): researcher implements rules; company reviews held-out flags. Month 3 (weeks 9–12): jointly review a prospective layout and deliver scripts, evidence log and go/no-go recommendation.",
       "risks": "A handful of boards cannot establish generalization. Enclosure, cables and operating mode can dominate emissions. Stop if netlists or scan conditions are unavailable; do not promise certification or avoided retest fees.",
-      "meeting": "Before a 45-minute meeting, request an approved board-file inventory and scan conditions. Layout lead and researcher inspect one failed and one passed design, reserve held-out boards and agree who annotates each scan. Leave with a file checklist, proposed rule baseline and a dated budget/access decision.",
+      "meeting": "In week 1, layout lead and researcher inspect approved failed/passed design examples, reserve held-out boards and assign scan annotations. Leave the meeting with a file checklist, baseline and dated budget/access decision.",
       "terms": "Agree a capped feasibility fee or joint funding application only after scoping. Keep client designs confidential, separate background methods from new scripts, and negotiate prototype ownership and publication review."
     }
   },
-  "reason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility.",
+  "reason": "Every required claim passed the Critic and mechanical checks",
   "reviews": [
     {
       "decision": "revise",
-      "checkedClaims": [
-        "rationale",
-        "facts.0",
-        "facts.1",
-        "facts.2",
-        "facts.3",
-        "facts.4",
-        "facts.5",
-        "facts.6",
-        "facts.7",
-        "plan.question",
-        "plan.experiment",
-        "plan.metrics",
-        "plan.companyAsk",
-        "plan.researcherAsk",
-        "plan.milestones",
-        "plan.risks",
-        "plan.meeting",
-        "plan.terms"
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "unsupported"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "ok"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "ok"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
       ],
       "issues": [
         "Unsupported quote R0637.bio"
-      ],
-      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+      ]
     },
     {
       "decision": "accept",
-      "checkedClaims": [
-        "rationale",
-        "facts.0",
-        "facts.1",
-        "facts.2",
-        "facts.3",
-        "facts.4",
-        "facts.5",
-        "facts.6",
-        "plan.question",
-        "plan.experiment",
-        "plan.metrics",
-        "plan.companyAsk",
-        "plan.researcherAsk",
-        "plan.milestones",
-        "plan.risks",
-        "plan.meeting",
-        "plan.terms"
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "ok"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "ok"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
       ],
-      "issues": [],
-      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+      "issues": []
     }
   ]
 }

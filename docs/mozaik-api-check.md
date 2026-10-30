@@ -14,7 +14,7 @@ Checked the installed `node_modules/@mozaik-ai/core/dist/index.d.ts` before impl
 
 The [official custom inference runner example](https://github.com/jigjoy-ai/mozaik-examples/blob/8e063bdf198de830567721a12bb1581c95a5ae78/custom-inference-runner/src/runner.ts) returns `ModelMessageItem.rehydrate`, unknown token usage and a terminal `inference.output` stream event. Our mock follows that pattern and uses local domain recipes. It is not a real language model.
 
-The [official installation documentation](https://docs.jigjoy.ai/docs/installation), [models documentation](https://docs.jigjoy.ai/docs/models), preparation reference, and installed provider implementation identify `GEMINI_API_KEY` and `ANTHROPIC_API_KEY`. Mozaik's registry uses provider `google` for Gemini. Names default to `gemini-3.5-flash-lite` and `claude-haiku-4-5` respectively; model availability at a real account is untested.
+The [official installation documentation](https://docs.jigjoy.ai/docs/installation), [models documentation](https://docs.jigjoy.ai/docs/models), preparation reference, and installed provider implementation identify `GEMINI_API_KEY` and `ANTHROPIC_API_KEY`. Mozaik's registry uses provider `google` for Gemini. Names default to `gemini-3.5-flash` and `claude-haiku-4-5` respectively; model availability at a real account is untested.
 
 Version-specific behavior handled explicitly:
 
@@ -27,3 +27,13 @@ Version-specific behavior handled explicitly:
 - Core's Cloud visitor can export full payloads when it discovers credentials. We blank its two key variables and point `MOZAIK_CREDENTIALS_FILE` at a fresh nonexistent path before loops begin. Local-only tracing is deliberate. Its repeated “telemetry disabled” warning is harmless.
 
 Offline tests exercise both native SDK request/response mappings with intercepted HTTP, including output caps, usage fields and a 429 with exactly one SDK attempt. This is **not a live-provider result**.
+
+## M3 adapter checks (offline)
+
+No new Mozaik API names were added. Checked the installed source and declarations before these changes:
+
+- `@google/genai/dist/genai.d.ts`: `GenerateContentConfig.responseJsonSchema` accepts JSON Schema, and must not be combined with `responseSchema`; `HttpOptions.fetch` supplies a custom fetch implementation. The adapter uses these official fields and captures sanitized error diagnostics and Retry-After per request, because `ApiError` exposes status but not response headers.
+- `@anthropic-ai/sdk/helpers/json-schema.d.ts` and `src/lib/transform-json-schema.ts`: `jsonSchemaOutputFormat` normalizes schema constraints. The old Mozaik mapper forwarded Zod string lengths, patterns and array bounds without this transformation. The new adapter uses the official helper; strict local Zod validation still enforces the full contract. The missing live-3 error body prevents proving this caused its HTTP 400.
+- Mozaik's mapper adds adaptive thinking only when `reasoningEffort` is present. This workflow never sets it, nor temperature. There is no code evidence that these parameters caused the recorded failures.
+
+The local prep documentation and installed SDK documentation were used; online documentation was not fetched in this offline M3 session. Intercepted SDK tests validate request schemas, diagnostic sanitization and Retry-After handling without network access.

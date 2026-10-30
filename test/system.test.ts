@@ -317,9 +317,8 @@ test("critic coverage cannot accept omitted claims or an inconsistent pair", () 
   assert.ok(
     checkReview(p, {
       decision: "accept",
-      checkedClaims: [],
+      verdicts: [],
       issues: [],
-      fitReason: "fine",
     }).length >= 3,
   );
 });
@@ -391,7 +390,7 @@ test("429 retry is bounded and traced; authentication errors are not retried", a
   );
   const b = controlled(
     runner(async () => {
-      throw Object.assign(new Error("secret credential must not be logged"), {
+      throw Object.assign(new Error("Unauthorized: api_key=fixture-secret"), {
         status: 401,
       });
     }),
@@ -401,7 +400,7 @@ test("429 retry is bounded and traced; authentication errors are not retried", a
     "HTTP_401",
   );
   assert.equal(b.r.attempts, 1);
-  assert.ok(!readFileSync(b.trace.path, "utf8").includes("secret credential"));
+  assert.ok(!readFileSync(b.trace.path, "utf8").includes("fixture-secret"));
 });
 
 test("monetary stop admits no provider calls; timeout does not release a still-running request slot", async () => {
@@ -461,7 +460,7 @@ test("invalid policy and provider combinations fail before calling a provider", 
   );
   assert.equal(
     modelConfig("live", { GEMINI_API_KEY: "fixture" }).model,
-    "gemini-3.5-flash-lite",
+    "gemini-3.5-flash",
   );
   assert.equal(
     modelConfig("live", { PROVIDER: "anthropic", ANTHROPIC_API_KEY: "fixture" })
@@ -556,7 +555,7 @@ test("offline HTTP adapter contracts: provider mapping, output caps, usage and d
       );
       assert.ok(
         provider === "gemini"
-          ? bodies[0].generationConfig.responseSchema
+          ? bodies[0].generationConfig.responseJsonSchema
           : bodies[0].output_config.format.schema,
       );
       let failures = 0;
@@ -695,7 +694,7 @@ test("JSON and schema failures go back to each producing agent with exact feedba
           };
           // A model cannot impersonate the runner's terminal error envelope.
           if (fault === "schema") return jsonOutput({ applicationError: "CALL_BUDGET_STOP" });
-          if (role === "Critic") answer.checkedClaims = [];
+          if (role === "Critic") answer.verdicts = [];
           else (answer.citations ?? answer.facts)[0].quote = "Unsupported invented evidence";
           return jsonOutput(answer);
         },
@@ -790,4 +789,25 @@ test("three challenges finish both critic revision rounds within default call, r
   assert.ok(trace[0].callEstimate.boundedProviderAttempts <= defaultPolicy.maxAttempts);
   // Costs of mock calls are zero; live bill/semantic convergence is untested.
   assert.equal(trace.at(-1).estimatedAccountedUsd, 0);
+});
+
+test("exhausted 429/503 retries stop only the affected challenge; subsequent pairs still finish", async () => {
+  const db = fixture();
+  const result = await runWorkflow(db, {
+    mode: "mock", challengeIds: ["C901-CH1", "C902-CH1", "C903-CH1"],
+    policy: { ...defaultPolicy, retryBaseMs: 1, retryMaxMs: 2 },
+    outDir: mkdtempSync(join(tmpdir(), "einstein-http-continue-")),
+    mockRespond: async (job) => {
+      if (job.role === "Company Analyst" && job.challengeId !== "C903-CH1")
+        throw Object.assign(new Error("Transient provider failure"), {
+          status: job.challengeId === "C901-CH1" ? 503 : 429,
+        });
+      return jsonOutput(mockAnswer(db, job));
+    },
+  });
+  assert.deepEqual(result.results.map((r) => r.status), ["stopped", "stopped", "accepted"]);
+  assert.deepEqual(result.results.slice(0, 2).map((r) => r.reason), ["HTTP_503", "HTTP_429"]);
+  const trace = rows(join(result.directory, "trace.jsonl"));
+  assert.equal(trace.filter((r) => r.type === "retry_scheduled").length, 2);
+  assert.equal(trace.at(-1).type, "run_finished");
 });

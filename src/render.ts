@@ -57,15 +57,16 @@ export function renderProposal(db: Dataset, r: Result): string {
       `**Evidence to investigate [${work.id}]:** “${safe(fieldText(work.record.title))}”. The work-side record links ${p.researcherId}; participation does not establish individual mastery. [Source ledger](${r.challengeId}.evidence.md).`,
       "",
     );
-  lines.push(`**Fit hypothesis / search outcome:** ${safe(p.rationale)}`, "");
+  lines.push(`**${p.plan ? "Why work together (hypothesis)" : "Search outcome"}:** ${safe(p.rationale)}`, "");
   if (p.plan) {
     const labels: Record<keyof typeof p.plan, string> = {
-      question: "Joint project and follow-on research topic",
-      experiment: "Proposed experiment",
-      metrics: "Proposed decision gate",
-      companyAsk: "Company contribution requested",
-      researcherAsk: "Researcher contribution requested",
-      milestones: "Milestones and deliverables",
+      question: "Research question",
+      experiment: "Three-month pilot",
+      metrics: "Decision gate",
+      companyAsk: "Company role (requested)",
+      researcherAsk: "Researcher role (requested)",
+      dataRequired: "Data and access required",
+      milestones: "Monthly owners and deliverables",
       risks: "Risks and stop conditions",
       meeting: "First actions and meeting decisions",
       terms: "Proposed data, IP and budget terms",

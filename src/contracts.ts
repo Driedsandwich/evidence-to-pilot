@@ -35,6 +35,7 @@ export const planSchema = z
     metrics: text,
     companyAsk: text,
     researcherAsk: text,
+    dataRequired: text,
     milestones: text,
     risks: text,
     meeting: text,
@@ -53,9 +54,11 @@ export const proposalSchema = z
 export const reviewSchema = z
   .object({
     decision: z.enum(["accept", "revise", "no_good_match"]),
-    checkedClaims: z.array(text),
-    issues: z.array(text),
-    fitReason: text,
+    verdicts: z.array(z.object({
+      path: z.string().min(1).max(80),
+      status: z.enum(["ok", "unsupported", "uncertain"]),
+    }).strict()).max(32),
+    issues: z.array(z.string().min(1).max(400)).max(16),
   })
   .strict();
 export type CompanyFinding = z.infer<typeof companySchema>;
@@ -146,16 +149,24 @@ export function checkProposal(
   return errors;
 }
 export function checkReview(p: Proposal, r: Review): string[] {
-  const missing = claimPaths(p).filter(
-    (path) => !r.checkedClaims.includes(path),
-  );
-  const errors = missing.map((path) => `Critic omitted ${path}`);
+  const required = new Set(claimPaths(p));
+  const seen = new Set<string>();
+  const errors: string[] = [];
+  for (const verdict of r.verdicts) {
+    if (!required.has(verdict.path)) errors.push(`Critic checked unknown claim ${verdict.path}`);
+    if (seen.has(verdict.path)) errors.push(`Critic duplicated ${verdict.path}`);
+    seen.add(verdict.path);
+  }
+  for (const path of required)
+    if (!seen.has(path)) errors.push(`Critic omitted ${path}`);
+  if (r.decision !== "revise" && r.verdicts.some((v) => v.status !== "ok"))
+    errors.push("Unresolved claim verdict requires revision");
   if (
     r.decision === "accept" &&
-    (r.issues.length || !p.researcherId || !p.plan)
+    (r.issues.length || !p.researcherId || !p.evidenceId || !p.plan)
   )
     errors.push("Inconsistent acceptance");
-  if (r.decision === "no_good_match" && p.researcherId)
+  if (r.decision === "no_good_match" && (p.researcherId !== null || p.evidenceId !== null || p.plan !== null))
     errors.push("Critic must request removal of unsupported pair first");
   if (r.decision === "no_good_match" && r.issues.length)
     errors.push("No-good-match cannot leave unresolved issues");

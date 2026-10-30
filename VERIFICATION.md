@@ -1,6 +1,26 @@
 # Verification record
 
-## Live-1 repair — current local verification, 30 October 2026
+## M3 — current offline verification, 30 October 2026
+
+Existing macOS dependencies and fictional dataset reused: Node 22.22.3, npm 10.9.8, Mozaik 4.1.0. No network calls, provider credentials, installation, downloads, training, full-dataset model inference or commits were needed. All changes remain in the working tree. The preserved live results in `runs/live-1` through `runs/live-4` predate these changes.
+
+| Command / check | Result |
+| --- | --- |
+| `npm run build` | Strict TypeScript build passed using existing packages. |
+| `npm test` | 29 tests passed, 0 failed, including 429/503 recovery and exhaustion, shared retry-wait budget, Retry-After seconds/dates, SDK error-body sanitization, native structured schema mapping, role-model selection, Critic coverage and multi-challenge continuation. HTTP responses are intercepted fixtures, not live calls. |
+| `npm run demo` | Three distinct mock proposals accepted after Critic corrections; one mock abstention. Run `2026-10-30T10-30-54-911Z-b7998553`; selected outputs refreshed in `docs/demo/`. |
+| `npm run trace -- docs/demo/trace.jsonl` | 22 completed Mozaik loops; peak concurrent inference 2; four analysis overlaps of 27–28 ms; three Critic correction cycles; zero provider calls/cost, unknown mock tokens. |
+| Proposal readback | Three 12-week briefs contain problem, why together, experiment, roles, requested data, month-by-month deliverables, decision gate, risks and source IDs. Rationale plus plan: 394/376/409 words; full Markdown: 572/586/562 words. |
+| Independent read-only review | No material code regression identified. The reviewer requested updating the old verification record; this M3 section addresses that finding. Review did not test live service behavior or final demo artifacts. |
+| Final artifact / scope checks | Demo copies match the generated run; documentation links resolve; `git diff --check` passes. `runs/`, `docs/prep/`, package versions and lockfile are unchanged; no raw `data/` files are tracked. |
+
+The new transport diagnostics are bounded sanitized provider messages, not complete raw responses. No-body/transport failures explicitly retain an unavailable-body marker; no HTTP status is invented. Retry budget limits scheduled backoff over all tasks in a run, separately from bounded admission/request waits. The Anthropic schema mismatch is a code-supported likely cause, not a confirmed explanation of the previous HTTP 400. No claim is made that M3 has recovered a live run or improved measured semantic quality. See [installed API checks](docs/mozaik-api-check.md#m3-adapter-checks-offline).
+
+After review, the Gemini error path was hardened to retain status and Retry-After even if the response body stream fails. The intercepted-SDK regression covers that case; the final `npm test` rerun again passed all 29 tests.
+
+The prior verification records below are historical. Their demo run IDs and test counts refer to previous snapshots; `docs/demo/` now contains the M3 output above.
+
+## Live-1 repair — historical local verification, 30 October 2026
 
 Environment: user's macOS laptop, Node **22.22.3**, npm **10.9.8**, installed TypeScript **5.9.3** and Mozaik **4.1.0**. Existing dependencies and organizer data were reused. This session made **no provider calls, network downloads, dependency installs or commits**. No training or dataset-wide model inference was run.
 

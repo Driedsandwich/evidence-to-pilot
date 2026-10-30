@@ -20,17 +20,25 @@
     ],
     "plan": null
   },
-  "reason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility.",
+  "reason": "Every required claim passed the Critic and mechanical checks",
   "reviews": [
     {
       "decision": "no_good_match",
-      "checkedClaims": [
-        "rationale",
-        "facts.0",
-        "facts.1"
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        }
       ],
-      "issues": [],
-      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+      "issues": []
     }
   ]
 }
