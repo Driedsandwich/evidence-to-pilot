@@ -1,0 +1,64 @@
+{
+  "runId": "2026-10-30T11-15-25-939Z-56c6ed67",
+  "mode": "live",
+  "results": [
+    {
+      "challengeId": "C001-CH1",
+      "status": "accepted",
+      "researcherId": "R1008"
+    },
+    {
+      "challengeId": "C025-CH1",
+      "status": "accepted",
+      "researcherId": "R0637"
+    },
+    {
+      "challengeId": "C036-CH1",
+      "status": "accepted",
+      "researcherId": "R0976"
+    }
+  ],
+  "peakConcurrentInference": 2,
+  "providerAttempts": 22,
+  "mockInvocations": 0,
+  "estimatedAccountedUsd": 1.1810640000000001,
+  "retryWaitMs": 0,
+  "inFlightProviderRequests": 0,
+  "dataSnapshot": {
+    "repository": "https://github.com/jigjoy-ai/einstein-matchmaker-data",
+    "commit": "4fb99b3749adf0d10b5977089ff4c73f4f522240",
+    "downloadedAt": "2026-10-30T09:36:36.789Z",
+    "files": {
+      "researchers.json": {
+        "sha256": "f0894a54adb054224b106e98376b67f34b301e96a6177a92d553389ec80db380",
+        "bytes": 3256078,
+        "url": "https://raw.githubusercontent.com/jigjoy-ai/einstein-matchmaker-data/4fb99b3749adf0d10b5977089ff4c73f4f522240/data/researchers.json"
+      },
+      "companies.json": {
+        "sha256": "d86dacced15cf3e48c267937fafe57c3270c182f88d78561e6bf0f47e23f36be",
+        "bytes": 1210164,
+        "url": "https://raw.githubusercontent.com/jigjoy-ai/einstein-matchmaker-data/4fb99b3749adf0d10b5977089ff4c73f4f522240/data/companies.json"
+      },
+      "publications.jsonl": {
+        "sha256": "a9f950cd6b7ff88c41091816a98dd60564ebaa499408061af27145013421bbe8",
+        "bytes": 19590668,
+        "url": "https://raw.githubusercontent.com/jigjoy-ai/einstein-matchmaker-data/4fb99b3749adf0d10b5977089ff4c73f4f522240/data/publications.jsonl"
+      },
+      "projects.json": {
+        "sha256": "62f952900699c81886fcbe57087905011aa20419b80e1d6c831e59ee3302a87e",
+        "bytes": 2555742,
+        "url": "https://raw.githubusercontent.com/jigjoy-ai/einstein-matchmaker-data/4fb99b3749adf0d10b5977089ff4c73f4f522240/data/projects.json"
+      },
+      "patents.json": {
+        "sha256": "b1138c98e96b232d85f9752466237a5e3032082960514083853bb92d9d3ab51e",
+        "bytes": 108527,
+        "url": "https://raw.githubusercontent.com/jigjoy-ai/einstein-matchmaker-data/4fb99b3749adf0d10b5977089ff4c73f4f522240/data/patents.json"
+      },
+      "company-pages.jsonl": {
+        "sha256": "b914a08767aeaa5064ec37abd9cc4b6f453f0feedf53a24605d3c66268e51a23",
+        "bytes": 1688965,
+        "url": "https://raw.githubusercontent.com/jigjoy-ai/einstein-matchmaker-data/4fb99b3749adf0d10b5977089ff4c73f4f522240/data/company-pages.jsonl"
+      }
+    }
+  }
+}

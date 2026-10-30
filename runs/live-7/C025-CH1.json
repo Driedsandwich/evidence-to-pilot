@@ -1,0 +1,177 @@
+{
+  "challengeId": "C025-CH1",
+  "status": "stopped",
+  "mode": "live",
+  "proposal": null,
+  "reason": "Validation correction limit reached for Critic: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 400,\n    \"inclusive\": true,\n    \"path\": [\n      \"issues\",\n      3\n    ],\n    \"message\": \"Too big: expected string to have <=400 characters\"\n  }\n]",
+  "reviews": [
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "unsupported"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "ok"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": [
+        "rationale: The 83% sensitivity (19/23 boards) was validated on external designs of unknown stack, topology, and frequency range. No source confirms those boards were tested at 150–450 MHz or match Nexara's power delivery. Revise to state applicability to Nexara is a hypothesis requiring empirical validation; current validation does not establish equivalent performance on Nexara boards.",
+        "plan.experiment: Go/no-go criteria lack decision logic. If Month 2 FDTD reveals the tool's geometric features do not correlate with measured emissions on Nexara boards, specify whether pilot continues, rule set pivots, or project pauses. Define maximum refinement iterations and abort threshold before Month 1 begins.",
+        "Unsupported quote C025-CH1.detail",
+        "Pilot brief exceeds 600 words; shorten the rationale and plan"
+      ]
+    },
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": [
+        "plan.experiment: 'Go/no-go decision at end Month 2: if correlation coefficient ≥0.6' — unclear whether r≥0.6 is a sufficient condition to proceed or merely a threshold hypothesis; revise to explicitly state the decision rule (e.g., 'if r<0.6, project pause unless Radulović and Nexara jointly agree to investigate root causes').",
+        "plan.metrics: secondary metric 'score-to-measurement correlation coefficient (r ≥0.6 indicates geometric features predict emission magnitude)' conflicts with plan.experiment's go/no-go threshold; clarify whether r≥0.6 is a pass/fail gate or an observational target, and reconcile with primary goal of ≥75% sensitivity.",
+        "plan.researcherAsk: 'Provide Python executable with documentation enabling Nexara engineers to score new designs independently post-pilot (non-commercial research-use license)' — unclear whether this is a binding commitment or a conditional proposal; revise to state 'Propose providing Python executable … conditional on pilot success and separate licensing agreement.'",
+        "plan.milestones: Week 8 go/no-go checkpoint tied only to correlation r<0.6; add explicit criterion linking to primary sensitivity metric (≥75%) or clarify hierarchy if correlation is independent.",
+        "Overall length: pilot brief currently ~750 words (rationale + plan). Shorten by consolidating redundant detail (e.g., rule list in rationale and experiment) and moving secondary risks to separate risk register if necessary to meet 600-word target.",
+        "Pilot brief exceeds 600 words; shorten the rationale and plan"
+      ]
+    }
+  ]
+}

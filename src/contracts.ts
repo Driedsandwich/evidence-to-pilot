@@ -9,13 +9,14 @@ export const citationSchema = z
     recordId: text.describe("Exact recordId from sources, e.g. R1015"),
     field: text.describe("Exact field key inside that source's fields, e.g. open_to"),
     quote: z.string().min(1).max(1600).describe(
-      "Exact contiguous excerpt of the field VALUE, not a field path or paraphrase. For string arrays join items with '; '. Example: fields.open_to=['joint projects','industrial PhD'] => quote='joint projects; industrial PhD'.",
+      "Copy a short exact contiguous excerpt (usually 5 to 25 words, fewer for short fields) from sources.fields. Never paraphrase, translate, add ellipses or stitch separated passages. Array fields are supplied as text joined with '; ': copy one item or an adjacent span, never skip items.",
     ),
   })
   .strict();
 export const companySchema = z
   .object({
     researchTask: z.boolean(),
+    interpretationKind: z.literal("proposal"),
     interpretation: text,
     citations: z.array(citationSchema).min(2).max(6),
   })
@@ -24,6 +25,7 @@ export const researchSchema = z
   .object({
     researcherId: recordId.nullable(),
     evidenceId: recordId.nullable(),
+    interpretationKind: z.literal("proposal"),
     interpretation: text,
     citations: z.array(citationSchema).max(6),
   })
@@ -46,6 +48,7 @@ export const proposalSchema = z
   .object({
     researcherId: recordId.nullable(),
     evidenceId: recordId.nullable(),
+    proseKind: z.literal("proposal").describe("Labels rationale and every plan field as proposed reasoning/actions, never established facts. Factual premises still require quotes in facts."),
     rationale: text,
     facts: z.array(citationSchema).max(12),
     plan: planSchema.nullable(),

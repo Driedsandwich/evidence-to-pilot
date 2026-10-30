@@ -17,10 +17,13 @@ flowchart TD
     CV -->|errors and previous output| C
     CV -->|writer citation errors or semantic revision| W
     CV -->|accepted or no good match; checks pass| OUT[Brief, evidence ledger and JSON]
-    AV -->|correction limit reached| STOP[Explicit stopped result]
-    BV -->|correction limit reached| STOP
+    AV -->|drop failed quotes; required evidence missing| STOP[Explicit stopped result]
+    BV -->|drop failed quotes; keep supported pair or abstain| STATE
     WV -->|correction limit reached| STOP
-    CV -->|correction or review limit reached| STOP
+    CV -->|review limit; optional claim recovery once| DROP[Remove rejected facts or rationale]
+    DROP -->|required evidence and plan intact; full re-review| C
+    DROP -->|cannot recover or still rejected| STOP
+    CV -->|invalid review after corrections| STOP
     A -.-> R[Shared limiter, retry and budget runner]
     B -.-> R
     W -.-> R

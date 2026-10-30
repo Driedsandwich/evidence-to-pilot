@@ -1,0 +1,291 @@
+{
+  "challengeId": "C036-CH1",
+  "status": "stopped",
+  "mode": "live",
+  "proposal": null,
+  "reason": "Review limit reached; no proposal accepted. Rationale assumes pilot execution without confirming prerequisites. Revise: state explicitly that berry sourcing, film availability, technologist assignment, and Marković's institutional capacity approval are mandatory week-0 gates; pilot does not proceed unless all four confirmed in writing.; Plan prose exceeds 600 words. Revise: consolidate experiment, metrics, companyAsk, researcherAsk, dataRequired, milestones, risks, meeting, and terms into <600 total words by removing redundant procedural detail and deferring agenda templates to separate contract document.; plan.experiment defers film selection to week-1 kick-off without confirming commercial availability now. Revise: identify one baseline film (OTR ~3,800 cm³/m²/day per Marković's precedent) and one alternative with current stock/lead-time verification, or state pilot pauses if availability cannot be confirmed by week 0.; plan.experiment proposes 'real raspberries if sourced by week 1 or certified proxy' without specifying measurement protocol. Revise: name cultivar (e.g., source from FreshPak's prior two seasons), require FreshPak to measure respiration rate at 2–4 °C using closed-chamber method by week 1 day 2, or state pilot pauses.; plan.metrics gates on 'acceptance criterion subject to week-1 confirmation' rather than stating firm threshold. Revise: confirm ≤1% mean mould at day 14 is the non-negotiable criterion now, or list three alternative thresholds (e.g., ≤2% if proxy used) with go/no-go triggers stated in week 0.; plan.companyAsk proposes '4 hours/week technologist' without citing FreshPak's confirmation or resource contingency. Revise: cite C036 'Quality lab with three technologists' and require FreshPak to name one technologist and backup by week 1 day 2; if commitment cannot be made, pilot paused pending approval by week 0.; plan.researcherAsk lists 'technical mentorship (bounded 2 hours/week)' and 'model priority' without confirming Marković's current workload or institutional approval. Revise: state these deliverables are conditional on Marković's written institutional capacity approval before week 1 data transfer; omit hour specifics or make subject to week-0 capacity sign-off.; plan.dataRequired proposes IP terms without citing existing FreshPak or Marković institutional policy. Revise: label as 'proposed terms for negotiation' rather than presumed agreement; state three core term categories (IP ownership, publication embargo, PhD contingency) and require separate legal/institutional review by week 0.; plan.milestones and plan.meeting together total ~400 words of procedural day-counts and agenda bullets that inflate length without clarifying go/no-go criteria. Revise: summarize as 'three checkpoints (week 1: gates and protocol; week 8: model status; week 12: results and PhD scope decision)' and relocate detailed agendas to separate partnership template or governance document.; Pilot brief exceeds 600 words; shorten the rationale and plan",
+  "reviews": [
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "unsupported"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.terms",
+          "status": "uncertain"
+        }
+      ],
+      "issues": [
+        "plan.experiment: 'ten replicates per film per trial' and 'real raspberries' are material feasibility claims; confirm FreshPak can supply this volume and that 'proxy produce' feasibility is evaluated.",
+        "plan.metrics: 'target go/no-go gate is mould incidence ≤1% at day 14 in all three simulated-transit replicates' assumes three replicates suffice for statistical confirmation; state this as a conditional hypothesis and clarify acceptance criterion (e.g., mean ≤1% or all three ≤1%).",
+        "plan.companyAsk: '50 technologist-hours total over 12 weeks' is 4 hours/week, contradicting '8 hours/week' stated earlier; reconcile resource commitment and confirm availability.",
+        "plan.researcherAsk: 'mentorship for one FreshPak technologist on gas-dynamics interpretation' and 'written interim report (week 8) and final report (week 12)' are deliverables; state as explicit conditional commitments, not assumed capabilities.",
+        "plan.dataRequired: 'recordId format and field names to be confirmed by FreshPak' leaves a material gap; specify data schema, access method, and timing before week 1 or defer to week 1 kick-off with go/no-go decision point.",
+        "plan.milestones: 'confirmatory in-house trial with real raspberries' at week 10–11 assumes berry availability; confirm source and lead time; 'mould scoring at days 7, 9, 11, 14' requires subjective rater calibration—state this as a protocol detail to be agreed.",
+        "plan.meeting: 'in-person or video' leaves travel/venue logistics unspecified; clarify default meeting mode and cost allocation (travel, venue).",
+        "plan.terms: 'no cash payments or grants are implied' contradicts 'FreshPak provides: ... technologist time (8 hours/week, approximately 50 technologist-hours total)'; clarify whether technologist cost is absorbed by FreshPak or co-funded; also clarify 'Month 4 post-pilot' timeline for industrial PhD negotiation and confirm Marković's institutional capacity to supervise.",
+        "Reduce plan prose by ~40% per criticFeedback; consolidate experiment, metrics, and milestones into compact sub-sections; move detailed timeline to appendix or separate project charter if length exceeds 600 words.",
+        "Pilot brief exceeds 600 words; shorten the rationale and plan"
+      ]
+    },
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.risks",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "uncertain"
+        }
+      ],
+      "issues": [
+        "plan.experiment: 'three candidate films' not specified; cite which films or clarify selection criteria as go/no-go gate.",
+        "plan.experiment: 'eight days' trial duration stated without justification relative to target 14-day shelf-life outcome; explain why headspace equilibrium at day 8 predicts day-14 mould control or add day-14 confirmatory measurement.",
+        "plan.experiment: 'real raspberries versus proxy produce' deferred to week 1 without go/no-go threshold; specify minimum feasibility acceptance criterion (cost threshold, lead time, or cultivar availability) or trial becomes unexecutable if real fruit unavailable.",
+        "plan.metrics: 'acceptance criterion to be agreed' (all three ≤1% or mean ≤1%) is unresolved; propose specific criterion or mark as no-go if unbreakable disagreement anticipated.",
+        "plan.companyAsk: '8 hours/week assumed' contradicts stated 'three technologists' capacity; specify committed hours per technologist, total weekly allocation, and duration (8-week pilot or full 12 weeks), or risk schedule breach.",
+        "plan.companyAsk: 'lead rater to be identified' is unfulfilled prerequisite; confirm FreshPak has designated mould-scoring lead and assign name/contact or defer to mandatory week-1 checkpoint.",
+        "plan.researcherAsk: 'mentorship on gas-dynamics interpretation (scope and hours to be agreed)' is open-ended; propose bounded hours/week or remove from researcher commitment.",
+        "plan.dataRequired: 'CSV format; schema to be confirmed at week-1 kick-off or no-go checkpoint' defers critical data infrastructure to week 1; propose a provisional schema or minute 1 that data access failure triggers pilot cancellation.",
+        "plan.milestones: 'Go/no-go decision and follow-on partnership terms to be negotiated by month 4 post-pilot' conflates pilot completion (week 12) with partnership negotiation (week 16+); clarify whether week-12 report triggers automatic month-4 negotiation or conditional re-engagement after results review.",
+        "plan.risks: Uncertainty 1 addresses calibration drift but does not propose stop/accept thresholds for week-3 cross-check; specify tolerance (e.g., ±5% OTR drift) or action if exceeded.",
+        "plan.risks: Uncertainty 5 (rater bias) mitigation requires 'visual rating protocol by week 2' and calibration with FreshPak lead; confirm lead rater identity and protocol draft availability before week 1 or this gate cannot be closed.",
+        "plan.terms: '(4) Supervision: if industrial PhD pursued, Marković conditionally supervises one candidate' assumes post-pilot institutional capacity approval; clarify that this is contingent on Marković's current availability or risk offer of supervision that cannot be fulfilled.",
+        "Pilot brief exceeds 600 words; shorten the rationale and plan"
+      ]
+    },
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "uncertain"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.risks",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.terms",
+          "status": "uncertain"
+        }
+      ],
+      "issues": [
+        "Rationale assumes pilot execution without confirming prerequisites. Revise: state explicitly that berry sourcing, film availability, technologist assignment, and Marković's institutional capacity approval are mandatory week-0 gates; pilot does not proceed unless all four confirmed in writing.",
+        "Plan prose exceeds 600 words. Revise: consolidate experiment, metrics, companyAsk, researcherAsk, dataRequired, milestones, risks, meeting, and terms into <600 total words by removing redundant procedural detail and deferring agenda templates to separate contract document.",
+        "plan.experiment defers film selection to week-1 kick-off without confirming commercial availability now. Revise: identify one baseline film (OTR ~3,800 cm³/m²/day per Marković's precedent) and one alternative with current stock/lead-time verification, or state pilot pauses if availability cannot be confirmed by week 0.",
+        "plan.experiment proposes 'real raspberries if sourced by week 1 or certified proxy' without specifying measurement protocol. Revise: name cultivar (e.g., source from FreshPak's prior two seasons), require FreshPak to measure respiration rate at 2–4 °C using closed-chamber method by week 1 day 2, or state pilot pauses.",
+        "plan.metrics gates on 'acceptance criterion subject to week-1 confirmation' rather than stating firm threshold. Revise: confirm ≤1% mean mould at day 14 is the non-negotiable criterion now, or list three alternative thresholds (e.g., ≤2% if proxy used) with go/no-go triggers stated in week 0.",
+        "plan.companyAsk proposes '4 hours/week technologist' without citing FreshPak's confirmation or resource contingency. Revise: cite C036 'Quality lab with three technologists' and require FreshPak to name one technologist and backup by week 1 day 2; if commitment cannot be made, pilot paused pending approval by week 0.",
+        "plan.researcherAsk lists 'technical mentorship (bounded 2 hours/week)' and 'model priority' without confirming Marković's current workload or institutional approval. Revise: state these deliverables are conditional on Marković's written institutional capacity approval before week 1 data transfer; omit hour specifics or make subject to week-0 capacity sign-off.",
+        "plan.dataRequired proposes IP terms without citing existing FreshPak or Marković institutional policy. Revise: label as 'proposed terms for negotiation' rather than presumed agreement; state three core term categories (IP ownership, publication embargo, PhD contingency) and require separate legal/institutional review by week 0.",
+        "plan.milestones and plan.meeting together total ~400 words of procedural day-counts and agenda bullets that inflate length without clarifying go/no-go criteria. Revise: summarize as 'three checkpoints (week 1: gates and protocol; week 8: model status; week 12: results and PhD scope decision)' and relocate detailed agendas to separate partnership template or governance document.",
+        "Pilot brief exceeds 600 words; shorten the rationale and plan"
+      ]
+    }
+  ]
+}

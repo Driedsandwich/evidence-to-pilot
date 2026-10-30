@@ -74,6 +74,15 @@ export function fieldText(value: unknown): string {
   if (typeof value === "number") return String(value);
   return "";
 }
+/** Quote identity, not lexical retrieval: retain diacritics, punctuation and
+ * word order. Serbian script conversion preserves č/ć/š/ž/đ distinctions. */
+export function normalizeQuote(text: string): string {
+  const serbian: Record<string, string> = { ...mappings, ђ: "đ", ж: "ž", ћ: "ć", ч: "č", џ: "dž", ш: "š", đ: "đ" };
+  return text.normalize("NFKC").toLowerCase()
+    .replace(/[а-яђјљњћџ]/g, (c) => serbian[c] ?? c)
+    .replace(/[‘’‚‛]/g, "'").replace(/[“”„‟«»]/g, '"')
+    .replace(/\s+/gu, " ").trim();
+}
 export class Dataset {
   sources = new Map<string, Source>();
   challenges = new Map<string, { companyId: string; source: Source }>();
@@ -98,7 +107,7 @@ export class Dataset {
     const text = Object.hasOwn(source.record, c.field)
       ? fieldText(source.record[c.field]) : "";
     const quote = this.resolveCitation(c).quote;
-    return !quote.trim() || !text.includes(quote)
+    return !normalizeQuote(quote) || !normalizeQuote(text).includes(normalizeQuote(quote))
       ? [`Unsupported quote ${c.recordId}.${c.field}`]
       : [];
   }

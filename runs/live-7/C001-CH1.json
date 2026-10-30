@@ -1,0 +1,280 @@
+{
+  "challengeId": "C001-CH1",
+  "status": "stopped",
+  "mode": "live",
+  "proposal": null,
+  "reason": "Review limit reached; no proposal accepted. plan.experiment: 'test using normal-traffic perturbations' lacks clarity on acceptance criteria; specify whether perturbation-based testing is mandatory or fallback if real attack scenarios unavailable, and confirm this was agreed with company; plan.experiment: 'clarify whether pilot relies on benign-only validation' is a contingency question, not a decision; move to plan.metrics go/no-go gate or remove if company has already specified; plan.metrics: 'define false positive tolerance jointly with company operations team' defers critical acceptance criteria to Week 2; clarify now whether <2% FPR is proposed target or whether pilot has no pre-agreed threshold, to avoid scope creep; plan.metrics: 'if metrics cannot be agreed by Week 2, revert to feasibility-only pilot' is a material scope pivot; establish whether feasibility-only outcome satisfies challenge success criteria or whether metrics agreement is prerequisite; plan.companyAsk: '500GB+ estimated' is a proposal figure; confirm company has quantified its available dataset or state this as a discovery task; plan.milestones: 'confirm test data strategy (real perturbations or benign-only validation)' at Week 3 is too late to be a design gate; move to Week 1 kickoff or establish Week 1 blocking decision; plan.milestones: 'decide go/no-go production pilot' at Week 12 depends on undefined metrics acceptance (see plan.metrics); clarify decision criteria in advance; Pilot brief exceeds 600 words; shorten the rationale and plan",
+  "reviews": [
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "unsupported"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": [
+        "Rationale claims 'published results use synthetic data' as factual premise without citation: SYN-PUB-10523 abstract states 'synthetic dataset generated from a real-world programmable logic controller testbed'—cite this or remove claim; currently reads as unsupported inference",
+        "Experiment proposes 'stratified by client site' and 'synthetic attacks (function code injection, coil manipulation, replay)' but does not establish that company consent, data governance, or attack simulation protocols are approved—label these as conditional requests, not established facts",
+        "Metrics: go/no-go threshold 'if FPR >3% or detection <85% by Week 10' lacks justification for these specific values in relation to company's actual operational tolerance—propose revision to make thresholds explicitly conditional or subject to Week 1 alignment with stakeholders",
+        "ResearcherAsk assumes Vuk Đukić and team will 'develop production-ready autoencoder implementation' and 'mentor company's anomaly detection engineer'—SYN-PUB-10523 demonstrates framework capability, not commitment; reframe as 'propose' or 'undertake if agreement reached'",
+        "Milestones attribute ownership ('Researcher Owner: Vuk; Company Owner: Platform Engineer') without evidence of role assignment or consent from named individuals—these are proposed team assignments, not confirmed allocations; add conditional language",
+        "Plan exceeds 600 words (critic feedback noted); condense rationale to <300 words and consolidate plan sections to fit brief scope—fold secondary metrics and detailed risk mitigation into concise bullets",
+        "Pilot brief exceeds 600 words; shorten the rationale and plan"
+      ]
+    },
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": [
+        "plan.experiment: 'synthetic function code injection and replay attacks on testbed' presumes attack payloads are available for testing; confirm company can generate or source representative attack scenarios or clarify testing uses only normal-traffic perturbations",
+        "plan.metrics: go/no-go decision criteria (FPR <2%, detection >90%) are stated as thresholds but lack grounding in company's actual false positive tolerance and detection priority; clarify whether <2% FPR is operationally acceptable or proposal only",
+        "plan.dataRequired: 'labelled normal-operation logs' and flow metadata (function codes, register ranges per client) availability is not confirmed; revise to conditional request or specify what unlabelled or partial metadata suffices",
+        "plan.milestones: Week 6 'detection results' and latency benchmarks imply preliminary attack testing by Week 5–6; clarify whether this assumes company provides or confirms synthetic test data by Week 3–4 or revise schedule",
+        "plan.milestones: 'explainability API draft' (Week 8) is vague; specify minimum deliverable (e.g., reconstruction error attribution per packet, heatmaps, threshold justification) to avoid misalignment on explainability acceptance",
+        "brevity: rationale and plan sections together exceed 600 words per critical feedback; consolidate into compact scoping brief by removing secondary metrics, fallback language, and meeting detail, or confirm length constraint does not apply to detailed plan section",
+        "Pilot brief exceeds 600 words; shorten the rationale and plan"
+      ]
+    },
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": [
+        "plan.experiment: 'test using normal-traffic perturbations' lacks clarity on acceptance criteria; specify whether perturbation-based testing is mandatory or fallback if real attack scenarios unavailable, and confirm this was agreed with company",
+        "plan.experiment: 'clarify whether pilot relies on benign-only validation' is a contingency question, not a decision; move to plan.metrics go/no-go gate or remove if company has already specified",
+        "plan.metrics: 'define false positive tolerance jointly with company operations team' defers critical acceptance criteria to Week 2; clarify now whether <2% FPR is proposed target or whether pilot has no pre-agreed threshold, to avoid scope creep",
+        "plan.metrics: 'if metrics cannot be agreed by Week 2, revert to feasibility-only pilot' is a material scope pivot; establish whether feasibility-only outcome satisfies challenge success criteria or whether metrics agreement is prerequisite",
+        "plan.companyAsk: '500GB+ estimated' is a proposal figure; confirm company has quantified its available dataset or state this as a discovery task",
+        "plan.milestones: 'confirm test data strategy (real perturbations or benign-only validation)' at Week 3 is too late to be a design gate; move to Week 1 kickoff or establish Week 1 blocking decision",
+        "plan.milestones: 'decide go/no-go production pilot' at Week 12 depends on undefined metrics acceptance (see plan.metrics); clarify decision criteria in advance",
+        "Pilot brief exceeds 600 words; shorten the rationale and plan"
+      ]
+    }
+  ]
+}

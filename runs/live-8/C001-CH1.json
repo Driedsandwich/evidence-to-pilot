@@ -1,0 +1,273 @@
+{
+  "challengeId": "C001-CH1",
+  "status": "accepted",
+  "mode": "live",
+  "proposal": {
+    "researcherId": "R1008",
+    "evidenceId": "SYN-PUB-10477",
+    "proseKind": "proposal",
+    "rationale": "Proposal: the mechanism to transfer is per-site statistical baseline modelling with one-class detectors (control charts, Gaussian, kernel density, Isolation Forest) that exploit periodic, limited-state Modbus traffic, with lightweight online updating. Proposal: judge this potentially directly applicable, subject to a transfer experiment. It is unknown whether it holds on ArmaturaSec's real captures, on BACnet, within hardware limits, or with plain-language alerts. The pilot is conditional on both parties agreeing.",
+    "facts": [
+      {
+        "recordId": "C001-CH1",
+        "field": "text",
+        "quote": "detect unusual behaviour on Modbus and BACnet networks without labelled attack data"
+      },
+      {
+        "recordId": "C001-CH1",
+        "field": "detail",
+        "quote": "learns what normal looks like on a specific site and raises a flag when behaviour drifts from that baseline"
+      },
+      {
+        "recordId": "C001-CH1",
+        "field": "detail",
+        "quote": "we have collected several terabytes of captures from consenting clients over the past three years"
+      },
+      {
+        "recordId": "C001-CH1",
+        "field": "detail",
+        "quote": "it flagged so many false positives in real deployments that clients started switching the alerts off"
+      },
+      {
+        "recordId": "C001",
+        "field": "rd_capacity",
+        "quote": "We can dedicate one to two engineers part-time to a collaborative project, with access to our traffic archives, our hardware bench, and our existing firmware codebase under NDA"
+      },
+      {
+        "recordId": "R1008",
+        "field": "bio",
+        "quote": "unsupervised anomaly detection and one-class classification for industrial control system protocol traffic, using statistical baseline modelling, kernel methods, and lightweight online learning algorithms suited to constrained embedded environments"
+      },
+      {
+        "recordId": "R1008",
+        "field": "open_to",
+        "quote": "joint projects with companies deploying ICS monitoring solutions; contract research on protocol traffic analysis and anomaly detection deployment"
+      },
+      {
+        "recordId": "SYN-PUB-10477",
+        "field": "abstract",
+        "quote": "Covered algorithms include univariate control charts, multivariate Gaussian models, kernel density estimators, one-class SVMs, Isolation Forest, and autoencoders"
+      },
+      {
+        "recordId": "SYN-PUB-10477",
+        "field": "abstract",
+        "quote": "determinism, periodicity, limited state space"
+      },
+      {
+        "recordId": "SYN-PUB-10477",
+        "field": "abstract",
+        "quote": "the difficulty of representative attack injection"
+      },
+      {
+        "recordId": "R1008",
+        "field": "notes",
+        "quote": "Her group's testbed capacity is available to industrial partners under a data-sharing agreement."
+      }
+    ],
+    "plan": {
+      "question": "Joint topic: Modbus per-site baseline-drift detection. Can one-class baselines trained only on normal captures cut false alerts versus a comparator while staying explainable? If go, a possible industrial PhD question afterwards: updating baselines without absorbing hidden compromises, then BACnet extension.",
+      "experiment": "Weeks 1-12: train control-chart, Gaussian, kernel-density and Isolation Forest baselines on time-split normal captures from 2-3 sites; test on held-out weeks plus labelled synthetic injections. Comparator: earlier classifier alerts if they exist; fallback: retrain on public data, or a simple control-chart threshold.",
+      "metrics": "Proposed negotiable week-12 go/no-go: false alerts per site-day at least 50% below comparator; at least 80% of synthetic injections flagged; latency, memory and CPU limits agreed once hardware specs are shared; sampled alerts explainable in one plain sentence. If comparator logs are unavailable, go requires beating the control-chart baseline.",
+      "companyAsk": "Subject to internal approval, ArmaturaSec is asked to nominate a data-access owner, assign one to two part-time engineers, and offer bench time, firmware access and archive subsets under NDA. How ownership splits between engineers and the access owner is an open question for week 1.",
+      "researcherAsk": "If willing and available, Krisztina Kiss is asked to advise on feature design, model choice, calibration and evaluation protocol, and to consider testbed use for injection tests under a data-sharing agreement. She would draft the feature plan; staffing and availability are unconfirmed.",
+      "dataRequired": "Requested: anonymised Modbus captures (timestamps, function codes, register addresses, lengths) from 2-3 consenting sites, site metadata, comparator alert logs if any, hardware specs. Access owner: ArmaturaSec nominee. Gates: client consent check, NDA, anonymisation sign-off, data-sharing agreement.",
+      "milestones": "Month 1 (weeks 1-4): ArmaturaSec engineer delivers data inventory and consent review by week 2; researcher delivers feature plan by week 3; joint evaluation protocol by week 4. Month 2 (weeks 5-8): joint baseline models and comparator results by week 8. Month 3 (weeks 9-12): hardware test, injection test, sample explanations and go/no-go report by week 12.",
+      "risks": "Unknown: comparator logs or classifier rerun availability, BACnet coverage, consent scope, undetected compromises in archives, synthetic injection realism, thresholds untested on real site data, drift, hardware limits, people and testbed availability. Mitigation: Modbus-first scope, fallback comparator, stopping at no-go.",
+      "meeting": "First-week actions: ArmaturaSec nominates an access owner; engineer lists archives, consents and comparator availability (days 1-3); researcher drafts feature questions (days 3-5). Agenda: scope, data access, NDA, roles, metrics, hardware limits, BACnet, publication, next steps.",
+      "terms": "Negotiable: raw data stays with ArmaturaSec; derived models and code IP shared or licensed by agreement; publication after confidentiality review; any funding, supervision or industrial PhD arrangement only after the pilot, under separate agreement."
+    }
+  },
+  "reason": "Every required claim passed the Critic and mechanical checks",
+  "reviews": [
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "facts.8",
+          "status": "ok"
+        },
+        {
+          "path": "facts.9",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "unsupported"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "unsupported"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": [
+        "plan.companyAsk and plan.dataRequired assume an ArmaturaSec 'data lead' who owns access decisions. No source mentions this role. Ask ArmaturaSec to nominate a data-access owner instead, and make the ownership split an open question.",
+        "plan.experiment and plan.metrics rely on the earlier supervised classifier's alerts as the comparator. Sources say only that it was tried once and produced false positives. Nothing shows that alert logs exist or that the classifier can be rerun on the chosen sites.",
+        "Add a fallback comparator, such as retraining the classifier on public data or using a simple threshold or control-chart baseline. Also add a go/no-go rule for the case where comparator logs are unavailable.",
+        "plan.metrics: the 'inference fits bench hardware' criterion is ambiguous because the hardware limits are unknown. Define it as a measurable limit (latency, memory, CPU) to be agreed once hardware specs are shared.",
+        "plan.risks: add the risk that comparator logs or the classifier are unavailable. Also name the risk that the proposed false-alert and detection thresholds are untested against real site data."
+      ]
+    },
+    {
+      "decision": "accept",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "facts.8",
+          "status": "ok"
+        },
+        {
+          "path": "facts.9",
+          "status": "ok"
+        },
+        {
+          "path": "facts.10",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "ok"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "ok"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": []
+    }
+  ]
+}

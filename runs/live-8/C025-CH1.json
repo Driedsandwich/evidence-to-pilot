@@ -1,0 +1,276 @@
+{
+  "challengeId": "C025-CH1",
+  "status": "accepted",
+  "mode": "live",
+  "proposal": {
+    "researcherId": "R0637",
+    "evidenceId": "SYN-PUB-07261",
+    "proseKind": "proposal",
+    "rationale": "Proposal: test transfer of a rule-based engine that reads Gerber files and a netlist, extracts geometric emission-risk features (trace-to-plane spacing, clock routing, decoupling placement, via stubs) and outputs a score plus violation list. Hypothesis: these rules may flag Nexara's 150–450 MHz hotspots and give engineers a self-run pre-sign-off check. Transfer is unproven: the tool was validated on other boards against CISPR 22 Class B, shows a 22% false-positive rate, and is described as an early gate, so Nexara's five boards must test generalisation.",
+    "facts": [
+      {
+        "recordId": "C025-CH1",
+        "field": "text",
+        "quote": "Three of our last five PCB designs failed radiated emissions at a third-party EMC lab on the first submission, typically between 150–450 MHz"
+      },
+      {
+        "recordId": "C025",
+        "field": "rd_capacity",
+        "quote": "one senior hardware engineer and one firmware engineer part-time to a collaborative project, with access to our lab equipment and internal board archives under NDA"
+      },
+      {
+        "recordId": "C025-CH1",
+        "field": "detail",
+        "quote": "We have the Gerber files, BOM, and pre-compliance scan data for all five boards and would be willing to share them under NDA."
+      },
+      {
+        "recordId": "C025-CH1",
+        "field": "detail",
+        "quote": "Ideally we want a layout checklist or a simulation workflow that our engineers can run themselves before sign-off"
+      },
+      {
+        "recordId": "C025-CH1",
+        "field": "detail",
+        "quote": "We have HyperLynx licences but our layout engineers mainly use them for impedance checks rather than full emissions prediction."
+      },
+      {
+        "recordId": "SYN-PUB-07261",
+        "field": "abstract",
+        "quote": "rule-based layout scoring tool that ingests Gerber files and a netlist, extracts geometric features related to emission risk, and outputs a numerical score and flagged violation list"
+      },
+      {
+        "recordId": "SYN-PUB-07261",
+        "field": "abstract",
+        "quote": "covering trace-to-plane spacing, clock trace routing distance from board edge, decoupling capacitor placement relative to device power pins, and via stub length"
+      },
+      {
+        "recordId": "SYN-PUB-07261",
+        "field": "abstract",
+        "quote": "boards that failed CISPR 22 Class B measurements scored below the threshold in 19 out of 23 cases (83% sensitivity). False-positive rate was 22%."
+      },
+      {
+        "recordId": "SYN-PUB-07261",
+        "field": "abstract",
+        "quote": "The tool is intended as an early design gate rather than a replacement for simulation or pre-compliance measurement."
+      },
+      {
+        "recordId": "R0637",
+        "field": "open_to",
+        "quote": "joint projects combining academic simulation with industrial prototype testing; industrial PhD supervision for engineers at electronics companies"
+      },
+      {
+        "recordId": "R0637",
+        "field": "notes",
+        "quote": "Her scanning bench is available for external use on a cost-recovery basis when faculty teaching commitments permit."
+      }
+    ],
+    "plan": {
+      "question": "Joint-project topic: can layout-scoring rules locate the 150–450 MHz hotspots of Nexara's five archived boards before testing? Conditional post-pilot industrial PhD question, only if go: which calibrated rule set predicts emissions on new boards?",
+      "experiment": "Baseline: Nexara's existing scans and lab outcomes. Weeks 1–12: score all five boards blind to results using a threshold fixed in advance, compare flagged violations with scan hotspots. Add HyperLynx emission checks only if kickoff verification shows the licences support them; otherwise drop.",
+      "metrics": "Kickoff pre-check: scans must give peak frequencies or locations mappable to layout features; failure is no-go for hotspot comparison. Coincidence: flagged feature within 20 mm of a hotspot or at a harmonic inside a scan peak band. Go: threshold not tuned on these boards; at least 2 of 3 failed boards flagged; at most 1 of 2 passed boards flagged; at most 10 unmatched violations per board. Negotiable.",
+      "companyAsk": "If approved internally, Nexara would assign part-time hardware and firmware engineers, supply board data under NDA, name an access owner, verify HyperLynx capability, and join weekly reviews. Hardware lead owns scan interpretation; firmware engineer owns scripting. Nothing is secured yet.",
+      "researcherAsk": "If available, Prof. Radulović would fix the threshold, adapt the rules, run the scoring, document the rule logic and advise on analysis. Scanning bench use would be requested only if schedule and cost-recovery terms are agreed.",
+      "dataRequired": "Requested under NDA: Gerber files, BOM, stackups, pre-compliance scans (peaks, locations) and lab pass/fail reports for five boards. Netlists are not confirmed; fallback: regenerate from design files, else narrow scope to Gerber-only rules. Access owner: Nexara hardware lead. Gates: written NDA, data-minimisation review, storage confirmation.",
+      "milestones": "Month 1 (weeks 1–4): NDA, data inventory, scan pre-check, netlist and HyperLynx checks, threshold fixed; owner both leads. Month 2 (weeks 5–8): blind scores and hotspot report; owner researcher. Month 3 (weeks 9–12): optional HyperLynx test, checklist draft, go/no-go memo; owners both.",
+      "risks": "Unknown: data completeness, researcher availability, rule transfer. Five boards limit statistical power; 22% false positives may burden engineers; scans may not map to layout features; scanning bench depends on teaching commitments.",
+      "meeting": "First-week actions: Nexara names access owner, drafts NDA and checks scans, netlists and HyperLynx; researcher drafts blind protocol and threshold. Agenda: goals, data fields, thresholds, roles, schedule, IP, no-go criteria, possible PhD topic.",
+      "terms": "Negotiable: NDA covers board data; Nexara retains design data ownership; rule code and results ownership or licence to be agreed; publication only after Nexara review; costs, equipment recovery and any PhD arrangement decided separately."
+    }
+  },
+  "reason": "Every required claim passed the Critic and mechanical checks",
+  "reviews": [
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "facts.8",
+          "status": "ok"
+        },
+        {
+          "path": "facts.9",
+          "status": "ok"
+        },
+        {
+          "path": "facts.10",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": [
+        "plan.metrics: go/no-go is ambiguous. Define a numeric false-positive limit and how the score threshold is fixed (e.g. set in advance, not tuned on the five boards). Define what counts as a scan hotspot coincidence.",
+        "plan.metrics: add a kickoff pre-check that the pre-compliance scans give hotspot localisation or band data mappable to layout features. Make failure of this check an explicit no-go.",
+        "plan.experiment: the HyperLynx emission-check step assumes the existing licences support it. Sources say only that they are mainly used for impedance checks. Add a kickoff item to verify this, and drop the step if it fails.",
+        "plan.dataRequired: the tool needs a netlist, but Nexara only offers Gerbers, BOM and scans. Add a fallback if netlists cannot be supplied, e.g. regenerate them from design files or narrow the scope."
+      ]
+    },
+    {
+      "decision": "accept",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "facts.8",
+          "status": "ok"
+        },
+        {
+          "path": "facts.9",
+          "status": "ok"
+        },
+        {
+          "path": "facts.10",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "ok"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "ok"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": []
+    }
+  ]
+}

@@ -9,7 +9,7 @@ export function renderEvidence(db: Dataset, r: Result): string {
   const lines = [
     `# ${r.mode.toUpperCase()} source ledger — ${r.challengeId}`,
     "",
-    "Verbatim excerpts from fictional records. Array fields are joined with `; `. Excerpts may end mid-sentence; consult the complete field before interpreting a negative or qualification.",
+    "Quotations from fictional records, checked as contiguous substrings after Unicode, case, whitespace, quote-mark and Serbian script normalization. Diacritics remain significant. Array fields are joined with `; `. Consult the complete field for negative context and qualifications.",
     "",
   ];
   for (const [i, c] of (r.proposal?.facts ?? []).entries()) {
@@ -20,7 +20,7 @@ export function renderEvidence(db: Dataset, r: Result): string {
   }
   lines.push(
     "",
-    "The companion JSON contains the exact strings checked mechanically. Full source context was available to the live critic; the mock critic uses scripted rules.",
+    "The companion JSON preserves the submitted quotation spelling. Full source context was available to the live critic; the mock critic uses scripted rules.",
     "",
   );
   return lines.join("\n");
@@ -57,6 +57,7 @@ export function renderProposal(db: Dataset, r: Result): string {
       `**Evidence to investigate [${work.id}]:** “${safe(fieldText(work.record.title))}”. The work-side record links ${p.researcherId}; participation does not establish individual mastery. [Source ledger](${r.challengeId}.evidence.md).`,
       "",
     );
+  lines.push("All reasoning and plan fields below are proposals, not established facts. Factual premises require the source ledger; resources, consent and outcomes remain unconfirmed.", "");
   lines.push(`**${p.plan ? "Why work together (hypothesis)" : "Search outcome"}:** ${safe(p.rationale)}`, "");
   if (p.plan) {
     const labels: Record<keyof typeof p.plan, string> = {

@@ -1,6 +1,21 @@
 # Verification record
 
-## M3 — current offline verification, 30 October 2026
+## M4 — offline verification, 30 October 2026
+
+No provider calls, dependency installation, dataset downloads, training or commits were performed for M4. Historical `runs/live-1` through `runs/live-6` are unchanged. M4 live acceptance remains unverified.
+
+| Command / check | Result |
+| --- | --- |
+| `npm run build` | Strict TypeScript build passed; also run by `npm test` and `npm run demo`. Existing Mozaik 4.1.0 declarations for runtime, events and context APIs were checked; no new Mozaik API names were introduced. |
+| `npm test` | 36 tests passed, 0 failed. Includes exact live-6 rejected outputs with authored source reconstructions, normalized contiguous matching, wrong record/field rejection, significant diacritics, optional claim removal, essential evidence loss, full recovery review, conditional judgement and invented-premise rejection. Semantic review tests are scripted, not live model evaluations. |
+| `npm run demo` | Run `2026-10-30T11-00-22-063Z-ae7c091d`: C001-CH1/R1008, C025-CH1/R0637 and C036-CH1/R0976 accepted in mock mode after one Critic correction each; C101-CH1 returned no-good-match. Outputs are under gitignored `out/`. Existing `docs/demo` examples were preserved. |
+| `npm run trace -- out/2026-10-30T11-00-22-063Z-ae7c091d/trace.jsonl` | 22 completed loops; four analysis overlaps of 27 ms; peak simultaneous inference 2; three Critic send-backs; zero provider attempts and mock cost. |
+| Bounded local quote diagnosis | All four distinct failed Profiler strings in live-6 failed containment under raw, NFKC, whitespace/quote folding, case, Serbian script and diagnostic diacritic removal. Original fields show skipped passages/items, documented in README. No model inference was used for this comparison. |
+| `git diff --check` | Passed. Changes remain uncommitted; dependency pins, lockfile and preserved live artifacts are unchanged. |
+
+The first build exposed a prompt string quoting error and missing TypeScript annotations; these were corrected. Restoring the requested Flash-Lite default also required updating a prior default-model assertion. The final suite passes without removing any prior tests. Final code and documentation checks were self-review, not independent verification.
+
+## M3 — historical offline verification, 30 October 2026
 
 Existing macOS dependencies and fictional dataset reused: Node 22.22.3, npm 10.9.8, Mozaik 4.1.0. No network calls, provider credentials, installation, downloads, training, full-dataset model inference or commits were needed. All changes remain in the working tree. The preserved live results in `runs/live-1` through `runs/live-4` predate these changes.
 

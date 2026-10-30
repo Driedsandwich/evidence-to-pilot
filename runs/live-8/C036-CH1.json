@@ -1,0 +1,273 @@
+{
+  "challengeId": "C036-CH1",
+  "status": "accepted",
+  "mode": "live",
+  "proposal": {
+    "researcherId": "R0976",
+    "evidenceId": "SYN-PUB-10216",
+    "proseKind": "proposal",
+    "rationale": "Proposal: the mechanism to transfer is matching film OTR/CO₂TR to berry respiration, using headspace gas measurement plus finite-element gas-permeation modelling, as in the cited mixed-berry study at 2 °C. Transfer remains a hypothesis: that study used mixed-berry trays and 12 films, while FreshPak's raspberry punnet, anti-fog lid, condensation and Botrytis behaviour are not yet characterised with an OTR-informed model. Researcher availability, data permissions and lab capacity are unconfirmed.",
+    "facts": [
+      {
+        "recordId": "C036-CH1",
+        "field": "text",
+        "quote": "Raspberries for Germany arrive with mould on day 9; buyers want 14 days."
+      },
+      {
+        "recordId": "C036-CH1",
+        "field": "detail",
+        "quote": "we do not have the modelling background to translate those numbers into a film specification"
+      },
+      {
+        "recordId": "C036",
+        "field": "rd_capacity",
+        "quote": "Quality lab with three technologists."
+      },
+      {
+        "recordId": "C036-CH1",
+        "field": "detail",
+        "quote": "We also have real shipment data — temperature logs, humidity logs, and destination inspection reports — from the last two seasons."
+      },
+      {
+        "recordId": "C036-CH1",
+        "field": "detail",
+        "quote": "A good result is punnets reaching day fourteen with mould incidence below one percent, confirmed in controlled simulated-transit tests."
+      },
+      {
+        "recordId": "R0976",
+        "field": "keywords",
+        "quote": "shelf life; modified atmosphere packaging; berries; cold chain; predictive models"
+      },
+      {
+        "recordId": "R0976",
+        "field": "open_to",
+        "quote": "industrial PhD supervision; joint projects"
+      },
+      {
+        "recordId": "SYN-PUB-10216",
+        "field": "abstract",
+        "quote": "Finite element modelling of gas permeation through the film was used to confirm experimental headspace trends and to predict equilibrium under alternative tray fill-weight scenarios."
+      },
+      {
+        "recordId": "C036-CH1",
+        "field": "detail",
+        "quote": "The punnet itself is a standard 125 g rPET shell with a heat-sealed anti-fog lidding film."
+      },
+      {
+        "recordId": "C036-CH1",
+        "field": "detail",
+        "quote": "We have run informal trials with two different film grades and adjusted seal pressures, but mould rates did not drop enough to matter."
+      },
+      {
+        "recordId": "SYN-PUB-10216",
+        "field": "abstract",
+        "quote": "evaluated 12 commercially available polymeric packaging films differing in oxygen transmission rate (OTR) and carbon dioxide transmission rate (CO₂TR) for their suitability in MAP of mixed-berry trays stored at 2 °C"
+      },
+      {
+        "recordId": "C036-CH1",
+        "field": "detail",
+        "quote": "a meaningful share of punnets show visible Botrytis mould"
+      }
+    ],
+    "plan": {
+      "question": "Joint-project topic: can OTR/CO₂TR-informed permeation modelling select a lidding film for raspberry punnets that reduces day-9 Botrytis mould? Possible industrial PhD question, only after a passed pilot and written agreement: how do film permeability and condensation jointly control Botrytis growth?",
+      "experiment": "Proposed 12-week pilot: measure OTR/CO₂TR for 3–4 candidate films plus the current film as baseline; log headspace O₂/CO₂ at 2–4 °C; fit a respiration-permeation model using shipment logs; score visible condensation; test the model-selected film in simulated transit.",
+      "metrics": "Baseline: current-film mould, condensation score and headspace at days 9 and 14. Proposed go (final values set at week-1 sign-off): 30 punnets per film in 3 batches; model headspace error ≤2 percentage points; ≥50% fewer mouldy punnets at day 9; condensation not worse. Otherwise no-go. Below 1% at day 14 is later validation.",
+      "companyAsk": "Proposed FreshPak owner, the quality lead, subject to internal approval: supply candidate films, punnets, technologist lab time for OTR/CO₂TR and headspace measurement, and shipment data. No external testing budget is assumed beyond materials and lab time.",
+      "researcherAsk": "If available, Prof. Marković is asked to lead model design, review the test protocol and help interpret results. Supervision, facilities, student involvement and participation are not assumed and need her confirmation.",
+      "dataRequired": "Requested: film datasheets, OTR/CO₂TR results, headspace series, temperature and humidity logs, destination inspection reports from two seasons, seal settings, fill weight. Access owner: FreshPak quality lead. Gates: anonymisation, buyer-confidentiality check, written data-sharing agreement.",
+      "milestones": "Month 1 (weeks 1–4): quality lead and professor finalize protocol; technologists run baseline; deliverable data dictionary. Month 2 (weeks 5–8): researcher builds model; week-6 interim go/no-go review; deliverable calibrated model. Month 3 (weeks 9–12): technologists run simulated transit; joint report with decision.",
+      "risks": "Unknowns: condensation may outweigh gas transmission; film availability; data quality or confidentiality limits; three technologists' capacity; researcher availability; small samples are indicative only; eight months may be too short for full validation. Mitigation: week-6 review and condensation scoring.",
+      "meeting": "Week 1 actions: quality lead sends data inventory; researcher reviews draft protocol; both confirm availability. 60-minute kickoff agenda: goals, data access, baseline design, candidate films, thresholds, roles, timeline, IP/data terms.",
+      "terms": "Negotiable proposal: FreshPak keeps raw commercial data; researcher may publish aggregated results after a review window; background IP stays with owners; ownership of the jointly developed model and any PhD arrangement agreed in writing before work starts."
+    }
+  },
+  "reason": "Every required claim passed the Critic and mechanical checks",
+  "reviews": [
+    {
+      "decision": "revise",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "uncertain"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "ok"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "uncertain"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": [
+        "Rationale: the claim that FreshPak's punnet, anti-fog lid, condensation and Botrytis behaviour are 'untested' conflicts with the challenge text, which says informal trials with two film grades were run. Reword it, for example 'not yet characterised with an OTR-informed model'.",
+        "Rationale: details such as the 125 g rPET punnet, the anti-fog lid, Botrytis, and the mixed-berry trays at 2 °C are stated without supporting quotes among the facts. Cite the exact challenge detail and publication abstract text, or remove these details.",
+        "plan.metrics: the go/no-go criteria are ambiguous. 'Pre-agreed tolerance' has no value, and 'lower mould than baseline' has no minimum difference, sample size or replicate count. Specify proposed numeric thresholds, such as a headspace error band, number of punnets per film, and a minimum mould reduction, or state that they will be set at the week-1 protocol sign-off.",
+        "Feasibility (optional): the experiment measures gas transmission and headspace but has no step to assess micro-condensation, which the company suspects is a cause. Add a condensation observation or humidity-log check, or state it as an explicit pilot limitation. The week-6 interim review appears in risks but not in milestones."
+      ]
+    },
+    {
+      "decision": "accept",
+      "verdicts": [
+        {
+          "path": "rationale",
+          "status": "ok"
+        },
+        {
+          "path": "facts.0",
+          "status": "ok"
+        },
+        {
+          "path": "facts.1",
+          "status": "ok"
+        },
+        {
+          "path": "facts.2",
+          "status": "ok"
+        },
+        {
+          "path": "facts.3",
+          "status": "ok"
+        },
+        {
+          "path": "facts.4",
+          "status": "ok"
+        },
+        {
+          "path": "facts.5",
+          "status": "ok"
+        },
+        {
+          "path": "facts.6",
+          "status": "ok"
+        },
+        {
+          "path": "facts.7",
+          "status": "ok"
+        },
+        {
+          "path": "facts.8",
+          "status": "ok"
+        },
+        {
+          "path": "facts.9",
+          "status": "ok"
+        },
+        {
+          "path": "facts.10",
+          "status": "ok"
+        },
+        {
+          "path": "facts.11",
+          "status": "ok"
+        },
+        {
+          "path": "plan.question",
+          "status": "ok"
+        },
+        {
+          "path": "plan.experiment",
+          "status": "ok"
+        },
+        {
+          "path": "plan.metrics",
+          "status": "ok"
+        },
+        {
+          "path": "plan.companyAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.researcherAsk",
+          "status": "ok"
+        },
+        {
+          "path": "plan.dataRequired",
+          "status": "ok"
+        },
+        {
+          "path": "plan.milestones",
+          "status": "ok"
+        },
+        {
+          "path": "plan.risks",
+          "status": "ok"
+        },
+        {
+          "path": "plan.meeting",
+          "status": "ok"
+        },
+        {
+          "path": "plan.terms",
+          "status": "ok"
+        }
+      ],
+      "issues": []
+    }
+  ]
+}

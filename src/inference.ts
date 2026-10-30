@@ -133,7 +133,7 @@ export function modelConfig(
     "Matchmaker / Proposal Writer": "WRITER_MODEL", Critic: "CRITIC_MODEL",
   };
   const model = (role && env[roleKeys[role]]) || env.MODEL ||
-    (provider === "gemini" ? "gemini-3.5-flash" : "claude-haiku-4-5");
+    (provider === "gemini" ? "gemini-3.5-flash-lite" : "claude-haiku-4-5");
   const m = supportedModels.find(
     (m) =>
       m.specification.name === model &&

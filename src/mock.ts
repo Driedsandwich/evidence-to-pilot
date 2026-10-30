@@ -127,6 +127,7 @@ export function mockAnswer(db: Dataset, job: Job): unknown {
   if (job.role === "Company Analyst")
     return {
       researchTask: category !== null,
+      interpretationKind: "proposal",
       interpretation: category
         ? "MOCK heuristic: an experimental feasibility pilot may be appropriate; confirm in a scoping meeting."
         : "MOCK abstention: this challenge is outside the three implemented demo domains; no conclusion about university capability.",
@@ -154,6 +155,7 @@ export function mockAnswer(db: Dataset, job: Job): unknown {
       return {
         researcherId: null,
         evidenceId: null,
+        interpretationKind: "proposal",
         interpretation:
           "MOCK: no directly supported candidate in the retrieved shortlist for an implemented demo domain; not evidence of absence.",
         citations: [],
@@ -174,6 +176,7 @@ export function mockAnswer(db: Dataset, job: Job): unknown {
     return {
       researcherId: candidate.researcherId,
       evidenceId: candidate.evidenceId,
+      interpretationKind: "proposal",
       interpretation:
         "MOCK hypothesis: the work addresses a related technical mechanism. Work-side ID attribution establishes participation, not sole authorship, personal mastery, availability or consent.",
       citations,
@@ -183,6 +186,7 @@ export function mockAnswer(db: Dataset, job: Job): unknown {
     const r = job.research!;
     const match = job.company!.researchTask && r.researcherId && category;
     const proposal: Proposal = {
+      proseKind: "proposal",
       researcherId: match ? r.researcherId : null,
       evidenceId: match ? r.evidenceId : null,
       rationale: match
