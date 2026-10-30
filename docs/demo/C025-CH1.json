@@ -1,0 +1,112 @@
+{
+  "challengeId": "C025-CH1",
+  "status": "accepted",
+  "mode": "mock",
+  "proposal": {
+    "researcherId": "R0637",
+    "evidenceId": "SYN-PUB-07261",
+    "rationale": "Proposed fit: test transfer of the cited work to the cited challenge in a bounded pilot. The link records authorship/participation only; the meeting must establish the individual’s role, current interest and resources.",
+    "facts": [
+      {
+        "recordId": "C025-CH1",
+        "field": "text",
+        "quote": "Three of our last five PCB designs failed radiated emissions at a third-party EMC lab on the first submission, typically between 150–450 MHz, which costs us on average €9,000 per re-test visit and delays client projects by six to ten weeks; we need a systematic way to predict and fix emission hotspots during layout review rather than after the fact."
+      },
+      {
+        "recordId": "C025",
+        "field": "rd_capacity",
+        "quote": "We can allocate one senior hardware engineer and one firmware engineer part-time to a collaborative project, with access to our lab equipment and internal board archives under NDA."
+      },
+      {
+        "recordId": "R0637",
+        "field": "name",
+        "quote": "Dijana Radulović"
+      },
+      {
+        "recordId": "SYN-PUB-07261",
+        "field": "title",
+        "quote": "Automated PCB Layout Scoring for EMC Risk Using Feature Extraction and a Rule-Based Engine"
+      },
+      {
+        "recordId": "SYN-PUB-07261",
+        "field": "abstract",
+        "quote": "Manual EMC design review is time-consuming and relies on reviewer expertise that varies across organisations. This paper describes a rule-based layout scoring tool that ingests Gerber files and a netlist, extracts geometric features related to emission risk, and outputs a numerical score and flagged violation list. Seventeen rules were derived from simulation studies and published guidelines, covering trace-to-plane spacing, clock trace routing"
+      },
+      {
+        "recordId": "R0637",
+        "field": "open_to",
+        "quote": "contract research on PCB EMC characterisation and pre-compliance testing; consulting on EMC design review and CISPR compliance strategies; joint projects combining academic simulation with industrial prototype testing; industrial PhD supervision for"
+      },
+      {
+        "recordId": "R0637",
+        "field": "notes",
+        "quote": "Radulović is interested in longer-term collaborative projects that involve real hardware from industrial partners rather than purely simulation-focused studies. Her scanning bench is available for external use on a cost-recovery basis when faculty"
+      }
+    ],
+    "plan": {
+      "question": "Can a repeatable Gerber/netlist review flag emission hotspots early enough to guide PCB layout changes before external testing?",
+      "experiment": "Propose a 6-week feasibility pilot: extract layout features, implement a small rule checklist, and compare flagged areas with archived scans. Use leave-one-board-out evaluation and one prospective layout review. Treat the output as engineering triage, not compliance certification.",
+      "metrics": "Measure hotspot agreement with scans, false flags per board and engineer review time. Proposed gate: identify a plausible hotspot on every held-out failed board, with at most five actionable false flags per review; a small sample gives uncertain estimates. External lab success remains unproven.",
+      "companyAsk": "Request NDA-protected Gerbers, netlists, stackups, BOMs and scans for the cited boards; ask a layout engineer to annotate known hotspots and reserve one review session per week.",
+      "researcherAsk": "Invite the cited researcher to help adapt layout rules and explain failure mechanisms; confirm personal contributions, current availability and any rights to existing code before reuse.",
+      "milestones": "Week 1: NDA, board inventory and annotation rules. Weeks 2–3: parser and baseline checklist. Weeks 4–5: held-out comparisons and one layout review. Week 6: checklist, scripts, evidence log and go/no-go meeting.",
+      "risks": "A handful of boards cannot establish generalization. Enclosure, cables and operating mode can dominate emissions. Stop if netlists or scan conditions are unavailable; do not promise certification or avoided retest fees.",
+      "meeting": "A 45-minute meeting with the layout lead and researcher: inspect one failed board and its scan, agree available file formats, select a held-out board and estimate engineering effort.",
+      "terms": "Agree a capped feasibility fee or joint funding application only after scoping. Keep client designs confidential, separate background methods from new scripts, and negotiate prototype ownership and publication review."
+    }
+  },
+  "reason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility.",
+  "reviews": [
+    {
+      "decision": "revise",
+      "checkedClaims": [
+        "rationale",
+        "facts.0",
+        "facts.1",
+        "facts.2",
+        "facts.3",
+        "facts.4",
+        "facts.5",
+        "facts.6",
+        "facts.7",
+        "plan.question",
+        "plan.experiment",
+        "plan.metrics",
+        "plan.companyAsk",
+        "plan.researcherAsk",
+        "plan.milestones",
+        "plan.risks",
+        "plan.meeting",
+        "plan.terms"
+      ],
+      "issues": [
+        "Unsupported quote R0637.bio"
+      ],
+      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+    },
+    {
+      "decision": "accept",
+      "checkedClaims": [
+        "rationale",
+        "facts.0",
+        "facts.1",
+        "facts.2",
+        "facts.3",
+        "facts.4",
+        "facts.5",
+        "facts.6",
+        "plan.question",
+        "plan.experiment",
+        "plan.metrics",
+        "plan.companyAsk",
+        "plan.researcherAsk",
+        "plan.milestones",
+        "plan.risks",
+        "plan.meeting",
+        "plan.terms"
+      ],
+      "issues": [],
+      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+    }
+  ]
+}

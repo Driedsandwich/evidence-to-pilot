@@ -1,0 +1,105 @@
+{
+  "challengeId": "C036-CH1",
+  "status": "accepted",
+  "mode": "mock",
+  "proposal": {
+    "researcherId": "R0976",
+    "evidenceId": "SYN-PUB-10216",
+    "rationale": "Proposed fit: test transfer of the cited work to the cited challenge in a bounded pilot. The link records authorship/participation only; the meeting must establish the individual’s role, current interest and resources.",
+    "facts": [
+      {
+        "recordId": "C036-CH1",
+        "field": "text",
+        "quote": "Raspberries for Germany arrive with mould on day 9; buyers want 14 days."
+      },
+      {
+        "recordId": "C036",
+        "field": "rd_capacity",
+        "quote": "Quality lab with three technologists."
+      },
+      {
+        "recordId": "R0976",
+        "field": "name",
+        "quote": "Jelena Marković"
+      },
+      {
+        "recordId": "SYN-PUB-10216",
+        "field": "title",
+        "quote": "Packaging material permeability screening for MAP of mixed-berry trays"
+      },
+      {
+        "recordId": "SYN-PUB-10216",
+        "field": "abstract",
+        "quote": "Mixed-berry trays combining raspberry, blueberry, and blackberry are commercially attractive but present packaging engineering challenges because each species has a distinct optimal modified atmosphere range and a different respiration rate at equivalent temperatures. This study evaluated 12 commercially available polymeric packaging films differing in oxygen transmission rate (OTR) and carbon dioxide transmission rate (CO₂TR) for their"
+      },
+      {
+        "recordId": "R0976",
+        "field": "open_to",
+        "quote": "industrial PhD supervision; joint projects"
+      }
+    ],
+    "plan": {
+      "question": "Can packaging-film permeability and headspace conditions be tuned to improve raspberry shelf life under the exporter’s actual cold-chain conditions?",
+      "experiment": "Propose an 8-week pilot: compare the current pack with three candidate films across three independent harvest lots. Log temperature and headspace gases; assess mold, firmness and sensory acceptability on days 0, 7, 9, 12 and 14. Final sample sizes and safety procedures require a food-science review.",
+      "metrics": "Proposed gate: a candidate meets buyer-agreed mold, firmness and sensory criteria on day 14 in all pilot lots, without unsafe gas conditions. Report lot-level uncertainty and cost per pack. Day 14 is a target to test, never an outcome guaranteed by prior work.",
+      "companyAsk": "Request sample fruit, current packaging specifications, cold-chain logs and a quality contact. Confirm access to storage and measurements, and cap the sample and consumables budget before the first lot.",
+      "researcherAsk": "Invite the cited researcher to design film/headspace comparisons and assess microbial-growth assumptions. Confirm personal contribution, lab access and availability; an industrial PhD is a later option requiring consent.",
+      "milestones": "Weeks 1–2: buyer acceptance criteria, film sourcing and protocol. Weeks 3–6: three staggered lot trials with temperature logging. Week 7: uncertainty and cost analysis. Week 8: packaging recommendation or documented no-go.",
+      "risks": "Mixed-berry results may not transfer to raspberry-only packs or fluctuating transport temperatures. Anaerobic conditions and sensory rejection can defeat longer shelf life. Do not release experimental packs for sale without the appropriate safety review.",
+      "meeting": "A 45-minute meeting with the quality manager and researcher: review one rejected shipment, choose acceptance thresholds and harvest windows, and confirm who can measure gases and microbiology.",
+      "terms": "Propose a capped trial budget, company ownership of shipment records, agreed access to de-identified measurements, negotiated foreground IP and a 60-day publication review. No funding or participation is secured."
+    }
+  },
+  "reason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility.",
+  "reviews": [
+    {
+      "decision": "revise",
+      "checkedClaims": [
+        "rationale",
+        "facts.0",
+        "facts.1",
+        "facts.2",
+        "facts.3",
+        "facts.4",
+        "facts.5",
+        "facts.6",
+        "plan.question",
+        "plan.experiment",
+        "plan.metrics",
+        "plan.companyAsk",
+        "plan.researcherAsk",
+        "plan.milestones",
+        "plan.risks",
+        "plan.meeting",
+        "plan.terms"
+      ],
+      "issues": [
+        "Unsupported quote R0976.bio"
+      ],
+      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+    },
+    {
+      "decision": "accept",
+      "checkedClaims": [
+        "rationale",
+        "facts.0",
+        "facts.1",
+        "facts.2",
+        "facts.3",
+        "facts.4",
+        "facts.5",
+        "plan.question",
+        "plan.experiment",
+        "plan.metrics",
+        "plan.companyAsk",
+        "plan.researcherAsk",
+        "plan.milestones",
+        "plan.risks",
+        "plan.meeting",
+        "plan.terms"
+      ],
+      "issues": [],
+      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+    }
+  ]
+}

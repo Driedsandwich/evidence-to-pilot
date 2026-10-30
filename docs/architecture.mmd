@@ -1,0 +1,26 @@
+flowchart TD
+    CLI[CLI: challenge IDs and mode] --> DATA[Pinned local dataset and BM25 index]
+    DATA --> OPEN[Mozaik challenge.opened event]
+    OPEN --> A[Company Analyst runLoop]
+    OPEN --> B[Research Profiler runLoop]
+    A -->|source-cited finding| STATE[(Shared RuntimeState)]
+    B -->|source-cited finding| STATE
+    STATE -->|both findings.ready| W[Matchmaker / Proposal Writer]
+    W -->|draft.ready| C[Critic: mechanical checks plus model review]
+    C -->|revision.requested: bounded feedback| W
+    C -->|accepted or no good match| OUT[Proposal brief, evidence ledger and JSON]
+    C -->|budget, timeout or review limit| STOP[Explicit stopped result]
+    A -.-> R[Shared runner: limiter, retry and budget]
+    B -.-> R
+    W -.-> R
+    C -.-> R
+    R --> MODE{Mode}
+    MODE --> MOCK[Official-pattern mock runner: no network]
+    MODE --> LIVE[Mozaik model registry and native mappers]
+    LIVE --> PROVIDER[Gemini or Anthropic SDK: internal retries off]
+    OPEN -.-> TRACE[Observer: JSONL events and actual loop IDs]
+    A -.-> TRACE
+    B -.-> TRACE
+    W -.-> TRACE
+    C -.-> TRACE
+    R -.-> TRACE

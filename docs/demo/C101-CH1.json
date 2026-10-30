@@ -1,0 +1,36 @@
+{
+  "challengeId": "C101-CH1",
+  "status": "no_good_match",
+  "mode": "mock",
+  "proposal": {
+    "researcherId": null,
+    "evidenceId": null,
+    "rationale": "No good match established in this local shortlist. MOCK domain coverage is intentionally narrow; request curator review or a reformulated bilingual query. This does not assess anyone’s worth or establish that relevant expertise is absent.",
+    "facts": [
+      {
+        "recordId": "C101-CH1",
+        "field": "text",
+        "quote": "Error mitigation on today's noisy quantum hardware for molecular simulation."
+      },
+      {
+        "recordId": "C101",
+        "field": "rd_capacity",
+        "quote": "Four physicists."
+      }
+    ],
+    "plan": null
+  },
+  "reason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility.",
+  "reviews": [
+    {
+      "decision": "no_good_match",
+      "checkedClaims": [
+        "rationale",
+        "facts.0",
+        "facts.1"
+      ],
+      "issues": [],
+      "fitReason": "MOCK scripted review: exact-source checks and three domain rules only. No LLM semantic judgement was made; acceptance means demo validation passed, not real feasibility."
+    }
+  ]
+}
