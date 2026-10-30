@@ -1,0 +1,8 @@
+{
+  "challengeId": "C001-CH1",
+  "status": "stopped",
+  "mode": "live",
+  "proposal": null,
+  "reason": "Invalid agent output: Unsupported quote R1015.open_to",
+  "reviews": []
+}
